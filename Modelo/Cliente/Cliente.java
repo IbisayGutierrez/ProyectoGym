@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Modelo;
+package Modelo.Cliente;
 
 import java.util.Date;
 
@@ -53,9 +53,18 @@ public class Cliente {
         this(0,"",new Date(),"","");
     }
 
+     public boolean validarMembresia() {
+        return tipoMembresia != null && !tipoMembresia.isEmpty();
+    }
+
+    public void renovarMembresia(String nuevoTipoMembresia) {
+        this.tipoMembresia = nuevoTipoMembresia;
+        System.out.println("Membresía renovada a: " + nuevoTipoMembresia);
+    }
+    
     @Override
     public String toString() {
         return "Cliente{" + "id=" + id + ", nombre=" + nombre + ", fechaNacimiento=" + fechaNacimiento + ", contacto=" + contacto + ", tipoMembresia=" + tipoMembresia + '}';
     }
-     
+    
 }

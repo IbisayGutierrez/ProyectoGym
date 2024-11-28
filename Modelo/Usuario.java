@@ -11,7 +11,7 @@ package Modelo;
 public class Usuario {
     private int id;
     private String Nombre;
-    private String contaseña;
+    private String contraseña;
     private String rol;
 
     public int getId() {
@@ -23,7 +23,7 @@ public class Usuario {
     }
 
     public String getContaseña() {
-        return contaseña;
+        return contraseña;
     }
 
     public String getRol() {
@@ -31,13 +31,32 @@ public class Usuario {
     }
 
     public void setContaseña(String contaseña) {
-        this.contaseña = contaseña;
+        this.contraseña = contaseña;
     }
 
     public void setRol(String rol) {
         this.rol = rol;
     }
+
+    public Usuario(int id, String Nombre, String contaseña, String rol) {
+        this.id = id;
+        this.Nombre = Nombre;
+        this.contraseña = contaseña;
+        this.rol = rol;
+    }
+
+    public Usuario() {
+        this(0,"","","");
+    }
+
+    public boolean validarCredenciales(String nombre, String contraseña) {
+        return this.Nombre.equals(nombre) && this.contraseña.equals(contraseña);
+    }
     
+    @Override
+    public String toString() {
+        return "Usuario{" + "id=" + id + ", Nombre=" + Nombre + ", contase\u00f1a=" + contraseña + ", rol=" + rol + '}';
+    }
     
     
 }

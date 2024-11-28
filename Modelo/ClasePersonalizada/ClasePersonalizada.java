@@ -56,4 +56,18 @@ public class ClasePersonalizada {
     public ClasePersonalizada() {
         this(0,"","",new Entrenador(),0);
     }  
+    public void registrarAsistencia() {
+        System.out.println("Asistencia registrada para la clase: " + tipoClase + ", horario: " + horario);
+    }
+
+    public boolean verificarDisponibilidad() {
+        if (capacidadMaxima > 0) {
+            System.out.println("Disponibilidad confirmada para la clase: " + tipoClase);
+            return true;
+        } else {
+            System.out.println("No hay cupos disponibles para la clase: " + tipoClase);
+            return false;
+        }
+    }
+
 }

@@ -4,6 +4,7 @@
  */
 package Modelo.ClasePersonalizada;
 
+import Modelo.Cliente.Cliente;
 import Modelo.Entrenador.Entrenador;
 
 /**
@@ -15,6 +16,7 @@ public class ClasePersonalizada {
     private String tipoClase;
     private String horario;
     private Entrenador entrenadorAsignado;
+    private Cliente Cliente;
     private int capacidadMaxima;
 
     public int getId() {

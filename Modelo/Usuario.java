@@ -11,8 +11,8 @@ package Modelo;
 public class Usuario {
     private int id;
     private String Nombre;
-    private String contraseña;
-    private String rol;
+    private String Password;
+    private Rol rol;
 
     public int getId() {
         return id;
@@ -22,40 +22,40 @@ public class Usuario {
         return Nombre;
     }
 
-    public String getContaseña() {
-        return contraseña;
+    public String getPassword() {
+        return Password;
     }
 
-    public String getRol() {
+    public Rol getRol() {
         return rol;
     }
 
-    public void setContaseña(String contaseña) {
-        this.contraseña = contaseña;
+    public void setPassword(String password) {
+        this.Password = password;
     }
 
-    public void setRol(String rol) {
+    public void setRol(Rol rol) {
         this.rol = rol;
     }
 
-    public Usuario(int id, String Nombre, String contaseña, String rol) {
+    public Usuario(int id, String Nombre, String Password, Rol rol) {
         this.id = id;
         this.Nombre = Nombre;
-        this.contraseña = contaseña;
+        this.Password = Password;
         this.rol = rol;
     }
 
     public Usuario() {
-        this(0,"","","");
+        this(0,"","",Rol.ADMINISTRADOR);
     }
 
     public boolean validarCredenciales(String nombre, String contraseña) {
-        return this.Nombre.equals(nombre) && this.contraseña.equals(contraseña);
+        return this.Nombre.equals(nombre) && this.Password.equals(Password);
     }
     
     @Override
     public String toString() {
-        return "Usuario{" + "id=" + id + ", Nombre=" + Nombre + ", contase\u00f1a=" + contraseña + ", rol=" + rol + '}';
+        return "Usuario{" + "id=" + id + ", Nombre=" + Nombre + ", contase\u00f1a=" + Password + ", rol=" + rol + '}';
     }
     
     

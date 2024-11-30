@@ -75,6 +75,11 @@ public class FrmCliente extends javax.swing.JInternalFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         txtFilter.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        txtFilter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFilterActionPerformed(evt);
+            }
+        });
         txtFilter.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtFilterKeyReleased(evt);
@@ -87,22 +92,15 @@ public class FrmCliente extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Cedula", "Nombre", "Fecha de Nacimiento", "Telefono", "Correo"
+                "Id", "Nombre", "Fecha de Nacimiento", "Contacto", "Tipo de Membresia"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, true, true, true
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
             }
         });
         jScrollPane2.setViewportView(tblCustomers);
@@ -177,6 +175,10 @@ public class FrmCliente extends javax.swing.JInternalFrame {
     private void txtFilterKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFilterKeyReleased
 
     }//GEN-LAST:event_txtFilterKeyReleased
+
+    private void txtFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFilterActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFilterActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

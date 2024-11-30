@@ -35,6 +35,8 @@ public class FrmCliente extends javax.swing.JInternalFrame {
         tblCustomers = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(153, 153, 255));
+
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Search.png"))); // NOI18N

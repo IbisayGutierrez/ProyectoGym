@@ -16,7 +16,7 @@ public class Cliente {
     private Date fechaNacimiento; 
     private String contacto;        
     private String tipoMembresia;
-
+    
     public int getId() {
         return id;
     }
@@ -40,6 +40,12 @@ public class Cliente {
     public void setTipoMembresia(String tipoMembresia) {
         this.tipoMembresia = tipoMembresia;
     }
+
+    public void setContacto(String contacto) {
+        this.contacto = contacto;
+    }
+    
+    
 
     public Cliente(int id, String nombre, Date fechaNacimiento, String contacto, String tipoMembresia) {
         this.id = id;

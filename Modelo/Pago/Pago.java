@@ -42,6 +42,8 @@ public class Pago {
     public double getTotal() {
         return total;
     }
+    
+    
 
     public Pago(int idPago, Cliente cliente, Date fecha, double subtotal, double impuesto, double total) {
         this.idPago = idPago;

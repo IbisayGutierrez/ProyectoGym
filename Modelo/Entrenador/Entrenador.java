@@ -33,6 +33,11 @@ public class Entrenador {
     public void setContacto(String contacto) {
         this.contacto = contacto;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     
     public Entrenador(int id, String nombre, String contacto, String especialidades) {
         this.id = id;

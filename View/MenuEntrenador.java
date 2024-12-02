@@ -4,6 +4,11 @@
  */
 package View;
 
+import View.FrmEntrenador;
+import java.awt.BorderLayout;
+import javax.swing.JComponent;
+import javax.swing.SwingUtilities;
+
 /**
  *
  * @author Student
@@ -16,6 +21,9 @@ public class MenuEntrenador extends javax.swing.JFrame {
     public MenuEntrenador() {
         initComponents();
     }
+    
+  
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,13 +38,20 @@ public class MenuEntrenador extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jClientes2 = new javax.swing.JButton();
         jClasePersonalizada2 = new javax.swing.JButton();
+        jMostrar = new javax.swing.JPanel();
 
         jButton1.setText("jButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(0, 0, 0));
 
-        jLabel1.setText("        GYM NUEVO");
+        JPanelMenu.setBackground(new java.awt.Color(0, 0, 0));
 
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("ATLAS FITNESS");
+
+        jClientes2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jClientes2.setText("Clientes");
         jClientes2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -44,32 +59,55 @@ public class MenuEntrenador extends javax.swing.JFrame {
             }
         });
 
+        jClasePersonalizada2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jClasePersonalizada2.setText("Clase Peronalizada");
+
+        jMostrar.setBackground(new java.awt.Color(51, 51, 51));
+
+        javax.swing.GroupLayout jMostrarLayout = new javax.swing.GroupLayout(jMostrar);
+        jMostrar.setLayout(jMostrarLayout);
+        jMostrarLayout.setHorizontalGroup(
+            jMostrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 419, Short.MAX_VALUE)
+        );
+        jMostrarLayout.setVerticalGroup(
+            jMostrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout JPanelMenuLayout = new javax.swing.GroupLayout(JPanelMenu);
         JPanelMenu.setLayout(JPanelMenuLayout);
         JPanelMenuLayout.setHorizontalGroup(
             JPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JPanelMenuLayout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addGroup(JPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jClasePersonalizada2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jClientes2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, JPanelMenuLayout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addGroup(JPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(JPanelMenuLayout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addGroup(JPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jClasePersonalizada2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jClientes2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(JPanelMenuLayout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(jLabel1)))
+                .addGap(18, 18, 18)
+                .addComponent(jMostrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         JPanelMenuLayout.setVerticalGroup(
             JPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JPanelMenuLayout.createSequentialGroup()
                 .addGap(46, 46, 46)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
-                .addComponent(jClientes2)
-                .addGap(39, 39, 39)
-                .addComponent(jClasePersonalizada2)
-                .addGap(103, 103, 103))
+                .addGroup(JPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JPanelMenuLayout.createSequentialGroup()
+                        .addComponent(jMostrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(JPanelMenuLayout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                        .addComponent(jClientes2)
+                        .addGap(39, 39, 39)
+                        .addComponent(jClasePersonalizada2)
+                        .addGap(103, 103, 103))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -77,8 +115,9 @@ public class MenuEntrenador extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(JPanelMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 403, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(JPanelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -89,9 +128,10 @@ public class MenuEntrenador extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jClientes2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jClientes2ActionPerformed
-       FrmCliente Cliente = new FrmCliente();
-       Cliente.setVisible(true);
-   
+       
+    FrmCliente frmCliente = new FrmCliente();
+    jMostrar.add(frmCliente);
+    frmCliente.setVisible(true);
     }//GEN-LAST:event_jClientes2ActionPerformed
 
     /**
@@ -126,7 +166,7 @@ public class MenuEntrenador extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new MenuEntrenador().setVisible(true);
-            }
+            }     
         });
     }
 
@@ -136,5 +176,6 @@ public class MenuEntrenador extends javax.swing.JFrame {
     private javax.swing.JButton jClasePersonalizada2;
     private javax.swing.JButton jClientes2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jMostrar;
     // End of variables declaration//GEN-END:variables
 }

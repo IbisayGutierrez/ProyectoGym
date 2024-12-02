@@ -104,7 +104,7 @@ public class FrmEntrenador extends javax.swing.JInternalFrame {
                 .addComponent(btnActualizar)
                 .addGap(47, 47, 47)
                 .addComponent(btnMostrar)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

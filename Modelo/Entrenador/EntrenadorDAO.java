@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -84,6 +86,20 @@ public class EntrenadorDAO extends DAO<EntrenadorDTO> {
 
         }
     }
+    public List<EntrenadorDTO> readAll() throws SQLException {
+    PreparedStatement stmt = connection.prepareStatement("CALL EntrenadorReadAll()");
+    ResultSet rs = stmt.executeQuery();
+    List<EntrenadorDTO> dtos = new ArrayList<>();
+    while (rs.next()) {
+        dtos.add(new EntrenadorDTO(
+            rs.getInt(1),
+            rs.getString(2),
+            rs.getString(3),
+            rs.getString(4)
+        ));
+    }
+    return dtos;
+}
     
     public boolean validatePK(Object id) throws SQLException {
         return read(id) == null;

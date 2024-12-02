@@ -42,6 +42,19 @@ public class Pago {
     public double getTotal() {
         return total;
     }
+
+    public void setSubtotal(double subtotal) {
+        this.subtotal = subtotal;
+    }
+
+    public void setImpuesto(double impuesto) {
+        this.impuesto = impuesto;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
+    }
+    
     
     
 
@@ -61,5 +74,6 @@ public class Pago {
     public double CalcularTotal(){
     return subtotal + impuesto;
 }
-    
+
+  
 }

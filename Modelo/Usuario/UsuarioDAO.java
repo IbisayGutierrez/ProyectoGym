@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -84,6 +86,25 @@ public class UsuarioDAO extends DAO<UsuarioDTO> {
             return stmt.executeUpdate() > 0;
         }
     }
+    
+    public List<UsuarioDTO> readAll() throws SQLException {
+    PreparedStatement stmt = connection.prepareStatement("CALL UsuarioReadAll()"); 
+    ResultSet rs = stmt.executeQuery();  
+    List<UsuarioDTO> dtos = new ArrayList<>();  
+
+   
+    while (rs.next()) {
+       
+        dtos.add(new UsuarioDTO(
+            rs.getInt(1),              
+            rs.getString(2),            
+            rs.getString(3),            
+                Rol.valueOf(rs.getString(4)) 
+        ));
+    }
+
+    return dtos;  // Retornar la lista de DTOs
+}
     
     public boolean validatePK(Object id) throws SQLException {
         return read(id) == null;

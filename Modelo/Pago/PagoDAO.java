@@ -5,12 +5,15 @@
 package Modelo.Pago;
 
 import Modelo.Cliente.Cliente;
+import Modelo.Cliente.ClienteDTO;
 import Modelo.Dao.DAO;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -65,21 +68,6 @@ public class PagoDAO extends DAO<PagoDTO> {
     return null;
     }
 
-    @Override
-    public boolean update(PagoDTO dto) throws SQLException {
-          if (dto == null) {
-            return false;
-        }
-        String query = "Call PagoUpdate(?,?,?)";
-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setString(1, dto.getCliente().getContacto());
-            stmt.setDate(2, (Date) dto.getFecha());
-            stmt.setDouble(3, dto.getTotal());
-            stmt.setInt(4, dto.getIdPago());
-            return stmt.executeUpdate() > 0;
-
-        }
-    }
 
     @Override
     public boolean delete(Object id) throws SQLException {
@@ -93,8 +81,60 @@ public class PagoDAO extends DAO<PagoDTO> {
 
         }
     }
+   public List<PagoDTO> readAll() throws SQLException {
+    PreparedStatement stmt = connection.prepareStatement("CALL PagoReadAll()");
+    ResultSet rs = stmt.executeQuery();
+    List<PagoDTO> dtos = new ArrayList<>();
+    
+    
+    while (rs.next()) {
+        
+        int clienteId = rs.getInt(2); 
+        Cliente cliente = getClienteById(clienteId); 
+        Date fecha = rs.getDate(3);  
+        PagoDTO dto = new PagoDTO(
+            rs.getInt(1), 
+            cliente, 
+            fecha, 
+            rs.getDouble(4), 
+            rs.getDouble(5), 
+            rs.getDouble(6)  
+        );
+        
+        dtos.add(dto);
+    }
+    
+    return dtos;
+}
+  
+
     
     public boolean validatePK(Object id) throws SQLException {
         return read(id) == null;
     }
+
+    @Override
+    public boolean update(PagoDTO dto) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); 
+    }
+    
+   public Cliente getClienteById(int clienteId) throws SQLException {
+    PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Cliente WHERE idCliente = ?");
+    stmt.setInt(1, clienteId); 
+    ResultSet rs = stmt.executeQuery(); 
+    
+    if (rs.next()) {  
+        int id = rs.getInt("idCliente");  
+        String nombre = rs.getString("nombre");  
+        Date fechaNacimiento = rs.getDate("fechaNacimiento");  
+        String contacto = rs.getString("contacto");  
+        String tipoMembresia = rs.getString("tipoMembresia");  
+        
+       
+        return new Cliente(id, nombre, fechaNacimiento, contacto, tipoMembresia);
+    }
+    
+    return null;  
+}
+
 }

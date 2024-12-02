@@ -4,12 +4,15 @@
  */
 package Modelo.ClasePersonalizada;
 
+import Modelo.ClasePersonalizada.ClasePersonalizadaDTO;
 import Modelo.Dao.DAO;
 import Modelo.Entrenador.Entrenador;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -92,6 +95,27 @@ public class ClasePersonalizadaDAO extends DAO<ClasePersonalizadaDTO> {
 
         }
     }
+    
+ public List<ClasePersonalizadaDTO> readAll() throws SQLException {
+    PreparedStatement stmt = connection.prepareStatement("CALL ClasePersonalizadaReadAll()");  // Llamada al procedimiento almacenado para obtener todas las clases personalizadas
+    ResultSet rs = stmt.executeQuery();
+    List<ClasePersonalizadaDTO> dtos = new ArrayList<>();
+
+    while (rs.next()) {
+        Entrenador entrenador = new Entrenador();
+        entrenador.setId(rs.getInt(4));  
+
+        dtos.add(new ClasePersonalizadaDTO(
+            rs.getInt(1),        
+            rs.getString(2),     
+            rs.getString(3),     
+            entrenador,          
+            rs.getInt(5)         
+        ));
+    }
+
+    return dtos;
+}
     
     public boolean validatePK(Object id) throws SQLException {
         return read(id) == null;

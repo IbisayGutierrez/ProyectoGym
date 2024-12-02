@@ -10,6 +10,8 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -92,7 +94,24 @@ public class ClienteDAO extends DAO<ClienteDTO>{
         }
     }
     
+    public List<ClienteDTO> readAll() throws SQLException {
+    PreparedStatement stmt = connection.prepareStatement("call ClienteReadAll()");
+    ResultSet rs = stmt.executeQuery();
+    List<ClienteDTO> dtos = new ArrayList<>();
+    while(rs.next()){
+        dtos.add(new ClienteDTO(
+                rs.getInt(1), 
+                rs.getString(2), 
+                rs.getDate(3),
+                rs.getString(4),
+                rs.getString(5)
+        ));
+    }
+    return dtos;
+}
+    
     public boolean validatePK(Object id) throws SQLException {
         return read(id) == null;
     }
+    
 }

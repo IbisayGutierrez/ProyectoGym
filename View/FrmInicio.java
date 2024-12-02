@@ -174,30 +174,15 @@ public class FrmInicio extends javax.swing.JFrame {
     }//GEN-LAST:event_jContraseñaActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-    String cedula = jCedula.getText();
+   
+     ValidarCedula();
+     ValidarNombre();
+     ValidarContraseña();
+    manejarSeleccionComboBox();
+    
+    
+    
 
-    if (cedula.length() != 9) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Este campo debe tener 9 digitos.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
-        return;
-    }
-    String nombre = jNombre.getText();
-    
-    if (nombre.trim().isEmpty()){
-        JOptionPane.showMessageDialog(null, "El nombre no puede estar vacio","Error",JOptionPane.ERROR_MESSAGE);
-        return;
-    }
-    
-     String texto = jContraseña.getText();
-    if (texto.length() < 8) {
-               JOptionPane.showMessageDialog
-              (null, "La contraseña debe tener al menos 8 caracteres.", "Error", JOptionPane.ERROR_MESSAGE);
-              return;
-          }
-    
-    
-    
-    
-    
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCedulaActionPerformed
@@ -216,31 +201,7 @@ public class FrmInicio extends javax.swing.JFrame {
     }//GEN-LAST:event_jCedulaKeyTyped
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-         String seleccion = (String) jComboBox1.getSelectedItem();
-    
-    
-    switch (seleccion) {
-        
-        case "Administrador":
-            
-            MenuAdministrador Principal = new MenuAdministrador();
-            Principal.setVisible(true);
-            this.dispose(); 
-            break;
-            
-        
-        case "Entrenador":
-            // Abrir FrmEntrenador
-            MenuEntrenador Entrenador = new MenuEntrenador();
-            Entrenador.setVisible(true);
-            this.dispose(); // Cierra la ventana actual si es necesario
-            break;
-            
-        
-        default:
          
-            break;
-    }
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**
@@ -291,4 +252,58 @@ public class FrmInicio extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JTextField jNombre;
     // End of variables declaration//GEN-END:variables
+private void manejarSeleccionComboBox() {
+  String seleccion = (String) jComboBox1.getSelectedItem();
+    
+    
+    switch (seleccion) {
+        
+        case "Administrador":
+            
+            MenuAdministrador Administrador = new MenuAdministrador();
+            Administrador.setVisible(true);
+            this.dispose(); 
+            break;
+            
+        
+        case "Entrenador":
+            
+            MenuEntrenador Entrenador = new MenuEntrenador();
+            Entrenador.setVisible(true);
+            this.dispose(); 
+            break;
+            
+        
+       
+    }
+}
+
+private void ValidarCedula(){
+     String cedula = jCedula.getText();
+
+    if (cedula.length() != 9) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Este campo debe tener 9 digitos.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        return;
+    }   
+}
+
+private void ValidarNombre(){
+ 
+    String nombre = jNombre.getText();
+    
+    if (nombre.trim().isEmpty()){
+        JOptionPane.showMessageDialog(null, "El nombre no puede estar vacio","Error",JOptionPane.ERROR_MESSAGE);
+        return;
+    }}
+
+private void ValidarContraseña(){
+    
+    String texto = jContraseña.getText();
+    if (texto.length() < 8) {
+               JOptionPane.showMessageDialog
+              (null, "La contraseña debe tener al menos 8 caracteres.", "Error", JOptionPane.ERROR_MESSAGE);
+              return;
+          }
+}
+
 }

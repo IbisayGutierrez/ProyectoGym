@@ -72,6 +72,11 @@ public class FrmInicio extends javax.swing.JFrame {
         jLabel5.setText("Rol");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Entrenador" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         jNombre.setBackground(new java.awt.Color(232, 232, 232));
         jNombre.setHorizontalAlignment(javax.swing.JTextField.LEFT);
@@ -189,9 +194,7 @@ public class FrmInicio extends javax.swing.JFrame {
               return;
           }
     
-    MenuPrincipal menuPrincipal = new MenuPrincipal();
-    menuPrincipal.setVisible(true);
-    this.dispose();
+    
     
     
     
@@ -211,6 +214,34 @@ public class FrmInicio extends javax.swing.JFrame {
         evt.consume(); 
     }
     }//GEN-LAST:event_jCedulaKeyTyped
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+         String seleccion = (String) jComboBox1.getSelectedItem();
+    
+    
+    switch (seleccion) {
+        
+        case "Administrador":
+            
+            MenuAdministrador Principal = new MenuAdministrador();
+            Principal.setVisible(true);
+            this.dispose(); 
+            break;
+            
+        
+        case "Entrenador":
+            // Abrir FrmEntrenador
+            MenuEntrenador Entrenador = new MenuEntrenador();
+            Entrenador.setVisible(true);
+            this.dispose(); // Cierra la ventana actual si es necesario
+            break;
+            
+        
+        default:
+         
+            break;
+    }
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**
      * @param args the command line arguments

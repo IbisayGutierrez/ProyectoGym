@@ -28,10 +28,8 @@ public class MenuEntrenador extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         JPanelMenu = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jClientes = new javax.swing.JButton();
-        jEntrenadores = new javax.swing.JButton();
-        jClasePersonalizada = new javax.swing.JButton();
-        jPago = new javax.swing.JButton();
+        jClientes2 = new javax.swing.JButton();
+        jClasePersonalizada2 = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
 
@@ -39,18 +37,14 @@ public class MenuEntrenador extends javax.swing.JFrame {
 
         jLabel1.setText("        GYM NUEVO");
 
-        jClientes.setText("Clientes");
-        jClientes.addActionListener(new java.awt.event.ActionListener() {
+        jClientes2.setText("Clientes");
+        jClientes2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jClientesActionPerformed(evt);
+                jClientes2ActionPerformed(evt);
             }
         });
 
-        jEntrenadores.setText("Entrenadores");
-
-        jClasePersonalizada.setText("Clase Peronalizada");
-
-        jPago.setText("Pago");
+        jClasePersonalizada2.setText("Clase Peronalizada");
 
         javax.swing.GroupLayout JPanelMenuLayout = new javax.swing.GroupLayout(JPanelMenu);
         JPanelMenu.setLayout(JPanelMenuLayout);
@@ -59,13 +53,11 @@ public class MenuEntrenador extends javax.swing.JFrame {
             .addGroup(JPanelMenuLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addGroup(JPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jClasePersonalizada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jEntrenadores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jClientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jClasePersonalizada2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jClientes2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, JPanelMenuLayout.createSequentialGroup()
                         .addGap(9, 9, 9)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPago, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(17, Short.MAX_VALUE))
         );
         JPanelMenuLayout.setVerticalGroup(
@@ -73,15 +65,11 @@ public class MenuEntrenador extends javax.swing.JFrame {
             .addGroup(JPanelMenuLayout.createSequentialGroup()
                 .addGap(46, 46, 46)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jClientes)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                .addComponent(jEntrenadores)
-                .addGap(26, 26, 26)
-                .addComponent(jClasePersonalizada)
-                .addGap(32, 32, 32)
-                .addComponent(jPago)
-                .addGap(48, 48, 48))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
+                .addComponent(jClientes2)
+                .addGap(39, 39, 39)
+                .addComponent(jClasePersonalizada2)
+                .addGap(103, 103, 103))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -100,11 +88,11 @@ public class MenuEntrenador extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jClientesActionPerformed
+    private void jClientes2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jClientes2ActionPerformed
        FrmCliente Cliente = new FrmCliente();
        Cliente.setVisible(true);
    
-    }//GEN-LAST:event_jClientesActionPerformed
+    }//GEN-LAST:event_jClientes2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -145,10 +133,8 @@ public class MenuEntrenador extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel JPanelMenu;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jClasePersonalizada;
-    private javax.swing.JButton jClientes;
-    private javax.swing.JButton jEntrenadores;
+    private javax.swing.JButton jClasePersonalizada2;
+    private javax.swing.JButton jClientes2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JButton jPago;
     // End of variables declaration//GEN-END:variables
 }

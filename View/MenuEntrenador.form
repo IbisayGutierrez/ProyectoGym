@@ -51,14 +51,12 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="jClasePersonalizada" max="32767" attributes="0"/>
-                      <Component id="jEntrenadores" alignment="1" max="32767" attributes="0"/>
-                      <Component id="jClientes" alignment="1" max="32767" attributes="0"/>
+                      <Component id="jClasePersonalizada2" max="32767" attributes="0"/>
+                      <Component id="jClientes2" alignment="1" max="32767" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
                           <Component id="jLabel1" min="-2" pref="106" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="jPago" alignment="1" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace pref="17" max="32767" attributes="0"/>
               </Group>
@@ -69,15 +67,11 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jClientes" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="30" max="32767" attributes="0"/>
-                  <Component id="jEntrenadores" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                  <Component id="jClasePersonalizada" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                  <Component id="jPago" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
+                  <EmptySpace pref="58" max="32767" attributes="0"/>
+                  <Component id="jClientes2" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+                  <Component id="jClasePersonalizada2" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="103" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -88,27 +82,17 @@
             <Property name="text" type="java.lang.String" value="        GYM NUEVO"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jClientes">
+        <Component class="javax.swing.JButton" name="jClientes2">
           <Properties>
             <Property name="text" type="java.lang.String" value="Clientes"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jClientesActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jClientes2ActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jEntrenadores">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Entrenadores"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JButton" name="jClasePersonalizada">
+        <Component class="javax.swing.JButton" name="jClasePersonalizada2">
           <Properties>
             <Property name="text" type="java.lang.String" value="Clase Peronalizada"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JButton" name="jPago">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Pago"/>
           </Properties>
         </Component>
       </SubComponents>

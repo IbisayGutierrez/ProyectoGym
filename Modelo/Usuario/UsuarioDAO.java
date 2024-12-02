@@ -4,7 +4,8 @@
  */
 package Modelo.Usuario;
 
-import Modelo.Dao.DAO;
+
+import Modelo.Dao.DaoCRUD;
 import Modelo.Rol;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,7 +18,7 @@ import java.util.List;
  *
  * @author andre
  */
-public class UsuarioDAO extends DAO<UsuarioDTO> {
+public class UsuarioDAO extends DaoCRUD<UsuarioDTO> {
 
     public UsuarioDAO(Connection connection) {
         super(connection);

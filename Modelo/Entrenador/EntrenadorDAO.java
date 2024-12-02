@@ -4,7 +4,8 @@
  */
 package Modelo.Entrenador;
 
-import Modelo.Dao.DAO;
+
+import Modelo.Dao.DaoCRUD;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,7 +17,7 @@ import java.util.List;
  *
  * @author andre
  */
-public class EntrenadorDAO extends DAO<EntrenadorDTO> {
+public class EntrenadorDAO extends DaoCRUD<EntrenadorDTO> {
 
     public EntrenadorDAO(Connection connection) {
         super(connection);

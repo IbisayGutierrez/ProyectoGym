@@ -5,8 +5,8 @@
 package Modelo.Pago;
 
 import Modelo.Cliente.Cliente;
-import Modelo.Cliente.ClienteDTO;
-import Modelo.Dao.DAO;
+
+import Modelo.Dao.DaoCRD;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -19,7 +19,7 @@ import java.util.List;
  *
  * @author andre
  */
-public class PagoDAO extends DAO<PagoDTO> {
+public class PagoDAO extends DaoCRD<PagoDTO> {
 
     public PagoDAO(Connection connection) {
         super(connection);
@@ -113,10 +113,7 @@ public class PagoDAO extends DAO<PagoDTO> {
         return read(id) == null;
     }
 
-    @Override
-    public boolean update(PagoDTO dto) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); 
-    }
+    
     
    public Cliente getClienteById(int clienteId) throws SQLException {
     PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Cliente WHERE idCliente = ?");

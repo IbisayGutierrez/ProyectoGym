@@ -4,8 +4,7 @@
  */
 package Modelo.ClasePersonalizada;
 
-import Modelo.ClasePersonalizada.ClasePersonalizadaDTO;
-import Modelo.Dao.DAO;
+import Modelo.Dao.DaoCRUD;
 import Modelo.Entrenador.Entrenador;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,7 +17,7 @@ import java.util.List;
  *
  * @author andre
  */
-public class ClasePersonalizadaDAO extends DAO<ClasePersonalizadaDTO> {
+public class ClasePersonalizadaDAO extends DaoCRUD<ClasePersonalizadaDTO> {
     
     public ClasePersonalizadaDAO(Connection connection) {
         super(connection);

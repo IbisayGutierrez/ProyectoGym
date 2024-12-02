@@ -4,7 +4,8 @@
  */
 package Modelo.Cliente;
 
-import Modelo.Dao.DAO;
+
+import Modelo.Dao.DaoCRUD;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -17,7 +18,7 @@ import java.util.List;
  *
  * @author andre
  */
-public class ClienteDAO extends DAO<ClienteDTO>{
+public class ClienteDAO extends DaoCRUD<ClienteDTO>{
 
     public ClienteDAO(Connection connection) {
         super(connection);

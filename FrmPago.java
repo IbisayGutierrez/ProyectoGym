@@ -4,6 +4,9 @@
  */
 package View;
 
+import Modelo.Cliente.Cliente;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author andre
@@ -45,7 +48,7 @@ public class FrmPago extends javax.swing.JInternalFrame {
         btnEditar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
-        btnMostrar = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -177,6 +180,11 @@ public class FrmPago extends javax.swing.JInternalFrame {
 
         btnEditar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnEliminar.setText("Eliminar");
@@ -189,8 +197,8 @@ public class FrmPago extends javax.swing.JInternalFrame {
             }
         });
 
-        btnMostrar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnMostrar.setText("Mostrar");
+        btnGuardar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnGuardar.setText("Guardar");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -206,7 +214,7 @@ public class FrmPago extends javax.swing.JInternalFrame {
                 .addGap(35, 35, 35)
                 .addComponent(btnActualizar)
                 .addGap(39, 39, 39)
-                .addComponent(btnMostrar)
+                .addComponent(btnGuardar)
                 .addContainerGap(59, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -217,7 +225,7 @@ public class FrmPago extends javax.swing.JInternalFrame {
                     .addComponent(btnAgregar)
                     .addComponent(btnEditar)
                     .addComponent(btnEliminar)
-                    .addComponent(btnMostrar)
+                    .addComponent(btnGuardar)
                     .addComponent(btnActualizar))
                 .addContainerGap(38, Short.MAX_VALUE))
         );
@@ -260,11 +268,12 @@ public class FrmPago extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtClienteActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        // TODO add your handling code here:
+
+      
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void txtSubtotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSubtotalActionPerformed
@@ -275,6 +284,10 @@ public class FrmPago extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtImpuestoActionPerformed
 
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEditarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
@@ -283,9 +296,9 @@ public class FrmPago extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JLabel btnFecha;
+    private javax.swing.JButton btnGuardar;
     private javax.swing.JLabel btnID;
     private javax.swing.JLabel btnImpuesto;
-    private javax.swing.JButton btnMostrar;
     private javax.swing.JLabel btnSubtotal;
     private javax.swing.JLabel btnTotal;
     private javax.swing.JLabel jLabel1;

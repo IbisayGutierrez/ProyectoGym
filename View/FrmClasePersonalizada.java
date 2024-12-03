@@ -4,6 +4,13 @@
  */
 package View;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author andre
@@ -16,6 +23,8 @@ public class FrmClasePersonalizada extends javax.swing.JInternalFrame {
     public FrmClasePersonalizada() {
         initComponents();
     }
+    
+    private ArrayList<String[]> datos = new ArrayList<>();
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -41,7 +50,7 @@ public class FrmClasePersonalizada extends javax.swing.JInternalFrame {
         btnEditar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
-        btnMostrar = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -98,11 +107,11 @@ public class FrmClasePersonalizada extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtHorario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnEntrenador, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
-                    .addComponent(txtEntrenador, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(44, 44, 44))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnEntrenador, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtEntrenador, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -124,19 +133,44 @@ public class FrmClasePersonalizada extends javax.swing.JInternalFrame {
 
         btnAgregar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
 
         btnEditar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         btnActualizar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
 
-        btnMostrar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnMostrar.setText("Mostrar");
-        btnMostrar.setToolTipText("");
+        btnGuardar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnGuardar.setText("Guardar ");
+        btnGuardar.setToolTipText("");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -152,7 +186,7 @@ public class FrmClasePersonalizada extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addComponent(btnActualizar)
                 .addGap(18, 18, 18)
-                .addComponent(btnMostrar)
+                .addComponent(btnGuardar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -164,7 +198,7 @@ public class FrmClasePersonalizada extends javax.swing.JInternalFrame {
                     .addComponent(btnEditar)
                     .addComponent(btnEliminar)
                     .addComponent(btnActualizar)
-                    .addComponent(btnMostrar))
+                    .addComponent(btnGuardar))
                 .addContainerGap(37, Short.MAX_VALUE))
         );
 
@@ -200,8 +234,155 @@ public class FrmClasePersonalizada extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_txtIDActionPerformed
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+         String id = txtID.getText().trim();
+    String entrenador = (String) txtEntrenador.getSelectedItem();
+    String horario = (String) txtHorario.getSelectedItem();
+    String tipo = (String) txtTipo.getSelectedItem();
+
+    // Validar que todos los campos tengan datos.
+    if (id.isEmpty() || entrenador == null || horario == null || tipo == null) {
+        JOptionPane.showMessageDialog(this, "Por favor, completa todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Crear el registro.
+    String[] registro = {id, entrenador, horario, tipo};
+
+    // Mostrar un mensaje de éxito.
+    JOptionPane.showMessageDialog(this, "Registro agregado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+    // Limpiar los campos después de agregar.
+    txtID.setText("");
+    txtEntrenador.setSelectedIndex(0);
+    txtHorario.setSelectedIndex(0);
+    txtTipo.setSelectedIndex(0);
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+       String id = txtID.getText().trim();
+    String nuevoEntrenador = (String) txtEntrenador.getSelectedItem();
+    String nuevoHorario = (String) txtHorario.getSelectedItem();
+    String nuevoTipo = (String) txtTipo.getSelectedItem();
+
+    // Validar que todos los campos tengan datos.
+    if (id.isEmpty() || nuevoEntrenador == null || nuevoHorario == null || nuevoTipo == null) {
+        JOptionPane.showMessageDialog(this, "Por favor, completa todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Buscar el registro en la lista.
+    boolean encontrado = false;
+    for (String[] registro : datos) {
+        if (registro[0].equals(id)) { // Comparar por ID.
+            // Actualizar los valores del registro.
+            registro[1] = nuevoEntrenador;
+            registro[2] = nuevoHorario;
+            registro[3] = nuevoTipo;
+
+            encontrado = true;
+            break;
+        }
+    }
+
+    // Mostrar un mensaje según si se encontró o no.
+    if (encontrado) {
+        JOptionPane.showMessageDialog(this, "Registro actualizado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+    } else {
+        JOptionPane.showMessageDialog(this, "No se encontró un registro con el ID especificado.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    // Limpiar los campos después de editar.
+    txtID.setText("");
+    txtEntrenador.setSelectedIndex(0);
+    txtHorario.setSelectedIndex(0);
+    txtTipo.setSelectedIndex(0);
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+   // Obtener el ID ingresado.
+    String id = txtID.getText().trim();
+
+    // Validar que se haya ingresado un ID.
+    if (id.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Por favor, ingresa un ID para eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Buscar y eliminar el registro en la lista.
+    boolean encontrado = false;
+    for (int i = 0; i < datos.size(); i++) {
+        if (datos.get(i)[0].equals(id)) { // Comparar por ID.
+            datos.remove(i); // Eliminar el registro.
+            encontrado = true;
+            break;
+        }
+    }
+
+    // Mostrar un mensaje según si se encontró o no.
+    if (encontrado) {
+        JOptionPane.showMessageDialog(this, "Registro eliminado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+    } else {
+        JOptionPane.showMessageDialog(this, "No se encontró un registro con el ID especificado.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    // Limpiar el campo ID después de eliminar.
+    txtID.setText("");
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+   // Verificar si hay registros en la lista.
+    if (datos.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "No hay registros para mostrar.", "Información", JOptionPane.INFORMATION_MESSAGE);
+        return;
+    }
+
+    // Mostrar los registros en la consola.
+    System.out.println("=== Registros Actualizados ===");
+    for (String[] registro : datos) {
+        System.out.println("ID: " + registro[0] + 
+                           ", Entrenador: " + registro[1] + 
+                           ", Horario: " + registro[2] + 
+                           ", Tipo: " + registro[3]);
+    }
+    System.out.println("==============================");
+    
+    // Mostrar un mensaje al usuario.
+    JOptionPane.showMessageDialog(this, "Los datos se han mostrado en la consola.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+    // Definir el archivo donde se guardarán los datos.
+    File archivo = new File("datos.txt");
+    
+    try (BufferedWriter escritor = new BufferedWriter(new FileWriter(archivo))) {
+        // Verificar si hay datos para guardar.
+        if (datos.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No hay datos para guardar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        // Escribir los datos en el archivo.
+        for (String[] registro : datos) {
+            escritor.write("ID: " + registro[0] + 
+                           ", Entrenador: " + registro[1] + 
+                           ", Horario: " + registro[2] + 
+                           ", Tipo: " + registro[3]);
+            escritor.newLine(); // Salto de línea para cada registro.
+        }
+        
+        // Mostrar mensaje de éxito.
+        JOptionPane.showMessageDialog(this, "Datos guardados correctamente en 'datos.txt'.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+    } catch (IOException e) {
+        // Manejar posibles errores de escritura.
+        JOptionPane.showMessageDialog(this, "Error al guardar los datos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        e.printStackTrace();
+    }
+    }//GEN-LAST:event_btnGuardarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -210,9 +391,9 @@ public class FrmClasePersonalizada extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JLabel btnEntrenador;
+    private javax.swing.JButton btnGuardar;
     private javax.swing.JLabel btnHorario;
     private javax.swing.JLabel btnID;
-    private javax.swing.JButton btnMostrar;
     private javax.swing.JLabel btnTipo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

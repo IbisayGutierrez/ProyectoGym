@@ -162,9 +162,19 @@ public class FrmPago extends javax.swing.JInternalFrame {
 
         btnNuevo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnNuevo.setText("Nuevo");
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         btnMostrar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnMostrar.setText("Mostrar");
@@ -225,6 +235,74 @@ public class FrmPago extends javax.swing.JInternalFrame {
     private void txtFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFechaActionPerformed
+
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+         try {
+        // Limpiar los campos y establecer valores predeterminados
+        txtID.setText(""); // ID manual, el usuario lo ingresará
+        txtCliente.setText("");
+        txtFecha.setText(java.time.LocalDate.now().toString()); // Fecha actual
+        txtImpuesto.setText("0.0");
+        txtSubtotal.setText("0.0");
+        txtTotal.setText("0.0");
+
+        // Enfocar el campo de ID para que el usuario lo complete
+        txtID.requestFocus();
+
+        // Mensaje opcional para el usuario
+        javax.swing.JOptionPane.showMessageDialog(this, "Nuevo registro iniciado. Complete el ID y los demás datos.", "Información", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+    } catch (Exception ex) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Error al iniciar un nuevo registro: " + ex.getMessage(), "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+    }
+    }//GEN-LAST:event_btnNuevoActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+         try {
+        // Obtener el ID que el usuario desea eliminar
+        String id = txtID.getText().trim();
+
+        // Validar que el campo ID no esté vacío
+        if (id.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Por favor, ingrese un ID para eliminar.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Confirmar eliminación con el usuario
+        int confirmacion = javax.swing.JOptionPane.showConfirmDialog(
+                this,
+                "¿Está seguro de que desea eliminar el registro con ID: " + id + "?",
+                "Confirmación",
+                javax.swing.JOptionPane.YES_NO_OPTION
+        );
+
+        if (confirmacion == javax.swing.JOptionPane.YES_OPTION) {
+            // Lógica para eliminar el registro (puede ser de una base de datos o una lista)
+            boolean eliminado = false; // Cambiar según la lógica real
+
+            // Simulación de eliminación (reemplazar con la lógica real de eliminación)
+            System.out.println("Eliminando registro con ID: " + id);
+            // Aquí debes llamar a tu método que elimina el registro
+            // Si el registro fue eliminado exitosamente:
+            eliminado = true;
+
+            if (eliminado) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Registro eliminado con éxito.", "Éxito", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+                // Limpiar los campos después de la eliminación
+                txtID.setText("");
+                txtCliente.setText("");
+                txtFecha.setText("");
+                txtImpuesto.setText("");
+                txtSubtotal.setText("");
+                txtTotal.setText("");
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(this, "No se encontró el registro con ID: " + id, "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    } catch (Exception ex) {
+        // Manejo de errores
+        javax.swing.JOptionPane.showMessageDialog(this, "Ocurrió un error al intentar eliminar el registro: " + ex.getMessage(), "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+    }
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

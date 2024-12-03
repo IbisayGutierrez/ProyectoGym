@@ -76,16 +76,36 @@ public class FrmEntrenador extends javax.swing.JInternalFrame {
 
         btnAgregar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         btnActualizar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
 
         btnMostrar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnMostrar.setText("Mostrar");
         btnMostrar.setToolTipText("");
+        btnMostrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMostrarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -187,6 +207,145 @@ public class FrmEntrenador extends javax.swing.JInternalFrame {
     private void txtIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIDActionPerformed
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        try {
+        // Obtener los valores de los campos de la interfaz gráfica
+        String id = txtID.getText().trim();
+        String nombre = txtNombre.getText().trim();
+        String contacto = txtContacto.getText().trim();
+        String especialidad = (String) txtEspecialidades.getSelectedItem();
+
+        // Validar los campos (asegurarse de que no estén vacíos)
+        if (id.isEmpty() || nombre.isEmpty() || contacto.isEmpty() || especialidad == null) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Realizar la operación de agregar (puede ser guardarlo en una lista o en la base de datos)
+        // Aquí un ejemplo sencillo con impresión en consola
+        System.out.println("ID: " + id);
+        System.out.println("Nombre: " + nombre);
+        System.out.println("Contacto: " + contacto);
+        System.out.println("Especialidad: " + especialidad);
+
+        // Mostrar mensaje de éxito
+        javax.swing.JOptionPane.showMessageDialog(this, "Registro agregado con éxito.", "Éxito", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+
+        // Limpiar los campos después de agregar
+        txtID.setText("");
+        txtNombre.setText("");
+        txtContacto.setText("");
+        txtEspecialidades.setSelectedIndex(0);
+    } catch (Exception ex) {
+        // Manejar errores
+        javax.swing.JOptionPane.showMessageDialog(this, "Ocurrió un error al intentar agregar el registro: " + ex.getMessage(), "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+    }
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        try {
+        // Obtener el ID del campo de texto
+        String id = txtID.getText().trim();
+
+        // Validar que el campo ID no esté vacío
+        if (id.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Por favor, ingrese el ID para eliminar.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Confirmar eliminación con el usuario
+        int confirmacion = javax.swing.JOptionPane.showConfirmDialog(
+                this,
+                "¿Está seguro de que desea eliminar el registro con ID: " + id + "?",
+                "Confirmación",
+                javax.swing.JOptionPane.YES_NO_OPTION
+        );
+
+        if (confirmacion == javax.swing.JOptionPane.YES_OPTION) {
+            // Lógica de eliminación (por ejemplo, eliminar de una lista o base de datos)
+            // Aquí un ejemplo simple donde se simula la eliminación
+            boolean eliminado = false; // Cambiar según la lógica real
+
+            // Simular la eliminación (reemplazar con la lógica de tu aplicación)
+            System.out.println("Intentando eliminar registro con ID: " + id);
+            eliminado = true; // Cambiar dependiendo del resultado de la eliminación
+
+            if (eliminado) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Registro eliminado con éxito.", "Éxito", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+                
+                // Limpiar campos
+                txtID.setText("");
+                txtNombre.setText("");
+                txtContacto.setText("");
+                txtEspecialidades.setSelectedIndex(0);
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(this, "No se encontró el registro con ID: " + id, "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    } catch (Exception ex) {
+        // Manejo de errores
+        javax.swing.JOptionPane.showMessageDialog(this, "Ocurrió un error al intentar eliminar el registro: " + ex.getMessage(), "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+    }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        try {
+        // Obtener los valores de los campos
+        String id = txtID.getText().trim();
+        String nombre = txtNombre.getText().trim();
+        String contacto = txtContacto.getText().trim();
+        String especialidad = (String) txtEspecialidades.getSelectedItem();
+
+        // Validar que los campos necesarios no estén vacíos
+        if (id.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Por favor, ingrese el ID para actualizar.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (nombre.isEmpty() || contacto.isEmpty() || especialidad == null) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos antes de actualizar.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Confirmar actualización con el usuario
+        int confirmacion = javax.swing.JOptionPane.showConfirmDialog(
+                this,
+                "¿Está seguro de que desea actualizar el registro con ID: " + id + "?",
+                "Confirmación",
+                javax.swing.JOptionPane.YES_NO_OPTION
+        );
+
+        if (confirmacion == javax.swing.JOptionPane.YES_OPTION) {
+            // Lógica de actualización (puede ser en una lista o base de datos)
+            boolean actualizado = false; // Cambiar según la lógica real
+
+            // Simulación de actualización (reemplazar con lógica real)
+            System.out.println("Actualizando registro con ID: " + id);
+            System.out.println("Nuevos datos -> Nombre: " + nombre + ", Contacto: " + contacto + ", Especialidad: " + especialidad);
+            actualizado = true; // Cambiar dependiendo del resultado real
+
+            if (actualizado) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Registro actualizado con éxito.", "Éxito", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+
+                // Limpiar los campos
+                txtID.setText("");
+                txtNombre.setText("");
+                txtContacto.setText("");
+                txtEspecialidades.setSelectedIndex(0);
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(this, "No se encontró el registro con ID: " + id, "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    } catch (Exception ex) {
+        // Manejo de errores
+        javax.swing.JOptionPane.showMessageDialog(this, "Ocurrió un error al intentar actualizar el registro: " + ex.getMessage(), "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+    }
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void btnMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarActionPerformed
+        
+    }//GEN-LAST:event_btnMostrarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

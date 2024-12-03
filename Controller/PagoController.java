@@ -20,40 +20,36 @@ import java.util.stream.Collectors;
  * @author Dell
  */
 public class PagoController {
-    private PagoDAO pagoDAO;
-    private PagoMapper pagoMapper;
+    private final PagoDAO pagoDAO;
+    private final PagoMapper pagoMapper;
     private final View view;             
     private static final double IMPUESTO_PORCENTAJE = 0.16; // 16% de impuestos
     private static final String[] TIPOS_MEMBRESIA = {"básico", "plus", "platino", "diamante"};
     private static final double[] COSTOS_MEMBRESIA = {15000, 25000, 35000, 45000};
 
-    public PagoController(View view) {
+    public PagoController(View view, Connection connection) {
         this.view = view;
         this.pagoMapper = new PagoMapper();
-        try {
-            this.pagoDAO = new PagoDAO(DataBase.getConnection()); // Conexión a BD
-        } catch (SQLException ex) {
-            view.showError("Error al conectar con la base de datos: " + ex.getMessage());
-            throw new RuntimeException("No se pudo inicializar el controlador PagoController");
-        } catch (ClassNotFoundException ex) {
-            view.showError("Error en la configuración de la conexión a la base de datos.");
-            throw new RuntimeException("No se pudo inicializar el controlador PagoController");
-        }
+        this.pagoDAO = new PagoDAO(connection); // Conexión a BD inyectada
+
     }
 
     // Crear un nuevo pago con cálculo de subtotal, impuesto y total
-    public boolean crearPago(Pago pago) {
+
+    public void crearPago(Pago pago) {
         if (pago == null || pago.getCliente() == null) {
             view.showError("Datos del pago o cliente incompletos.");
-            return false;
+            return;
+
         }
 
         // Obtener el tipo de membresía y validar
         String tipoMembresia = pago.getCliente().getTipoMembresia();
         if (!validarMembresia(tipoMembresia)) {
             view.showError("Tipo de membresía no válido: " + tipoMembresia);
-            return false;
+            return;
         }
+
 
         // Calcular los valores del pago
         double subtotal = obtenerCostoMembresia(tipoMembresia);
@@ -70,16 +66,14 @@ public class PagoController {
             PagoDTO dto = pagoMapper.toDTO(pago);
             if (pagoDAO.create(dto)) {
                 view.showMessage("Pago registrado exitosamente. Total: $" + total);
-                return true;
             } else {
                 view.showError("No se pudo registrar el pago.");
-                return false;
             }
         } catch (SQLException ex) {
             view.showError("Error al guardar el pago: " + ex.getMessage());
-            return false;
         }
     }
+
 
     // Obtener un pago por su ID
     public Pago obtenerPago(int idPago) {
@@ -94,46 +88,40 @@ public class PagoController {
             view.showError("Error al obtener el pago: " + ex.getMessage());
             return null;
         }
+
     }
-
-    
-
     // Eliminar un pago por su ID
-    public boolean eliminarPago(int idPago) {
+    public void eliminarPago(int idPago) {
         try {
             if (pagoDAO.delete(idPago)) {
                 view.showMessage("Pago eliminado correctamente.");
-                return true;
             } else {
                 view.showError("No se pudo eliminar el pago.");
-                return false;
             }
         } catch (SQLException ex) {
             view.showError("Error al eliminar el pago: " + ex.getMessage());
-            return false;
         }
     }
-
     // Obtener todos los pagos
     public List<Pago> listarPagos() {
         try {
             List<PagoDTO> dtos = pagoDAO.readAll();
-           return dtos.stream()
-    .map(dto -> {
-        try {
-            return pagoMapper.toEnt(dto);
-        } catch (SQLException e) {
-            throw new RuntimeException("Error al mapear PagoDTO a Pago", e);
-        }
-    })
-    .collect(Collectors.toList());
+            return dtos.stream()
+                .map(dto -> {
+                    try {
+                        return pagoMapper.toEnt(dto);
+                    } catch (Exception e) {
+                        throw new RuntimeException("Error al mapear PagoDTO a Pago", e);
+                    }
+                })
+                .collect(Collectors.toList());
         } catch (SQLException ex) {
             view.showError("Error al cargar los pagos: " + ex.getMessage());
             return new ArrayList<>();
         }
     }
-
     // Método para obtener el costo de la membresía según el tipo
+    
     private double obtenerCostoMembresia(String tipoMembresia) {
         for (int i = 0; i < TIPOS_MEMBRESIA.length; i++) {
             if (TIPOS_MEMBRESIA[i].equalsIgnoreCase(tipoMembresia)) {
@@ -150,11 +138,12 @@ public class PagoController {
                 return true;
             }
         }
+
         return false;
     }
-
-    // Validar los datos de un pago
     private boolean validarPago(Pago pago) {
-        return pago.getSubtotal() > 0 && pago.getImpuesto() >= 0 && pago.getTotal() == pago.CalcularTotal();
+        return pago.getSubtotal() > 0 && 
+               pago.getImpuesto() >= 0 && 
+               pago.getTotal() == (pago.getSubtotal() + pago.getImpuesto());
     }
 }

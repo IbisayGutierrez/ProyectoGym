@@ -38,7 +38,6 @@ public class FrmEntrenador extends javax.swing.JInternalFrame {
         txtEspecialidades = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         btnAgregar = new javax.swing.JButton();
-        btnEditar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
         btnMostrar = new javax.swing.JButton();
@@ -73,11 +72,10 @@ public class FrmEntrenador extends javax.swing.JInternalFrame {
             }
         });
 
+        txtEspecialidades.setEditable(true);
+
         btnAgregar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnAgregar.setText("Agregar");
-
-        btnEditar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnEditar.setText("Editar");
 
         btnEliminar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnEliminar.setText("Eliminar");
@@ -94,15 +92,13 @@ public class FrmEntrenador extends javax.swing.JInternalFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(35, 35, 35)
+                .addGap(72, 72, 72)
                 .addComponent(btnAgregar)
-                .addGap(31, 31, 31)
-                .addComponent(btnEditar)
-                .addGap(30, 30, 30)
+                .addGap(40, 40, 40)
                 .addComponent(btnEliminar)
-                .addGap(36, 36, 36)
+                .addGap(46, 46, 46)
                 .addComponent(btnActualizar)
-                .addGap(18, 18, 18)
+                .addGap(43, 43, 43)
                 .addComponent(btnMostrar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -112,7 +108,6 @@ public class FrmEntrenador extends javax.swing.JInternalFrame {
                 .addContainerGap(42, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAgregar)
-                    .addComponent(btnEditar)
                     .addComponent(btnEliminar)
                     .addComponent(btnActualizar)
                     .addComponent(btnMostrar))
@@ -198,7 +193,6 @@ public class FrmEntrenador extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnAgregar;
     private javax.swing.JLabel btnConta;
-    private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JLabel btnEspecialidades;
     private javax.swing.JLabel btnID;

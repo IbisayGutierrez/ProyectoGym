@@ -47,7 +47,6 @@ public class FrmClasePersonalizada extends javax.swing.JInternalFrame {
         txtEntrenador = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         btnAgregar = new javax.swing.JButton();
-        btnEditar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
@@ -83,12 +82,13 @@ public class FrmClasePersonalizada extends javax.swing.JInternalFrame {
             }
         });
 
-        txtTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        txtTipo.setEditable(true);
+        txtTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
 
         txtHorario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtHorario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mañana", "Tarde", "Noche", " " }));
 
-        txtEntrenador.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        txtEntrenador.setEditable(true);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -139,14 +139,6 @@ public class FrmClasePersonalizada extends javax.swing.JInternalFrame {
             }
         });
 
-        btnEditar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnEditar.setText("Editar");
-        btnEditar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarActionPerformed(evt);
-            }
-        });
-
         btnEliminar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -177,17 +169,15 @@ public class FrmClasePersonalizada extends javax.swing.JInternalFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
+                .addGap(46, 46, 46)
                 .addComponent(btnAgregar)
-                .addGap(18, 18, 18)
-                .addComponent(btnEditar)
-                .addGap(18, 18, 18)
+                .addGap(35, 35, 35)
                 .addComponent(btnEliminar)
-                .addGap(18, 18, 18)
+                .addGap(31, 31, 31)
                 .addComponent(btnActualizar)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addComponent(btnGuardar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(22, 22, 22))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -195,7 +185,6 @@ public class FrmClasePersonalizada extends javax.swing.JInternalFrame {
                 .addGap(31, 31, 31)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAgregar)
-                    .addComponent(btnEditar)
                     .addComponent(btnEliminar)
                     .addComponent(btnActualizar)
                     .addComponent(btnGuardar))
@@ -261,46 +250,6 @@ public class FrmClasePersonalizada extends javax.swing.JInternalFrame {
     txtHorario.setSelectedIndex(0);
     txtTipo.setSelectedIndex(0);
     }//GEN-LAST:event_btnAgregarActionPerformed
-
-    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-       String id = txtID.getText().trim();
-    String nuevoEntrenador = (String) txtEntrenador.getSelectedItem();
-    String nuevoHorario = (String) txtHorario.getSelectedItem();
-    String nuevoTipo = (String) txtTipo.getSelectedItem();
-
-    // Validar que todos los campos tengan datos.
-    if (id.isEmpty() || nuevoEntrenador == null || nuevoHorario == null || nuevoTipo == null) {
-        JOptionPane.showMessageDialog(this, "Por favor, completa todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
-
-    // Buscar el registro en la lista.
-    boolean encontrado = false;
-    for (String[] registro : datos) {
-        if (registro[0].equals(id)) { // Comparar por ID.
-            // Actualizar los valores del registro.
-            registro[1] = nuevoEntrenador;
-            registro[2] = nuevoHorario;
-            registro[3] = nuevoTipo;
-
-            encontrado = true;
-            break;
-        }
-    }
-
-    // Mostrar un mensaje según si se encontró o no.
-    if (encontrado) {
-        JOptionPane.showMessageDialog(this, "Registro actualizado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-    } else {
-        JOptionPane.showMessageDialog(this, "No se encontró un registro con el ID especificado.", "Error", JOptionPane.ERROR_MESSAGE);
-    }
-
-    // Limpiar los campos después de editar.
-    txtID.setText("");
-    txtEntrenador.setSelectedIndex(0);
-    txtHorario.setSelectedIndex(0);
-    txtTipo.setSelectedIndex(0);
-    }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
    // Obtener el ID ingresado.
@@ -388,7 +337,6 @@ public class FrmClasePersonalizada extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnAgregar;
-    private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JLabel btnEntrenador;
     private javax.swing.JButton btnGuardar;

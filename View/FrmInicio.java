@@ -147,7 +147,7 @@ public class FrmInicio extends javax.swing.JFrame {
             jFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jFondoLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addGroup(jFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(jLabel6))
                 .addGap(18, 18, 18)

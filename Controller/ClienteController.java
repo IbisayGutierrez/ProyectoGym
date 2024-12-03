@@ -7,36 +7,45 @@ import Modelo.Cliente.Cliente;
 import Modelo.Cliente.ClienteDAO;
 import Modelo.Cliente.ClienteDTO;
 import Modelo.Cliente.ClienteMapper;
+import View.View;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  *
  * @author Dell
  */
 public class ClienteController {
-     private final ClienteDAO clienteDAO;
+    private final ClienteDAO clienteDAO;
     private final ClienteMapper clienteMapper;
+    private final View view; 
     private static final String[] TIPOS_MEMBRESIA = {"básico", "plus", "platino", "diamante"};
 
-    public ClienteController(Connection connection) {
+    public ClienteController(View view, Connection connection) {
+        this.view = view;
         this.clienteDAO = new ClienteDAO(connection);
         this.clienteMapper = new ClienteMapper();
     }
 
-    public boolean agregarCliente(Cliente cliente) {
-        if (!validarMembresia(cliente.getTipoMembresia())) {
-            System.out.println("Tipo de membresía no válido.");
-            return false;
+    public void agregarCliente(Cliente cliente) {
+        if (cliente == null || !validarMembresia(cliente.getTipoMembresia())) {
+            view.showError("Tipo de membresía no válido o cliente nulo.");
+            return;
         }
         try {
+            if (!validatePK(cliente.getId())) {
+                view.showError("La cédula ingresada ya se encuentra registrada.");
+                return;
+            }
             ClienteDTO dto = clienteMapper.toDTO(cliente);
-            return clienteDAO.create(dto);
+            clienteDAO.create(dto);
+            view.showMessage("Cliente agregado correctamente.");
         } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
+            view.showError("Ocurrió un error al guardar los datos: " + e.getMessage());
         }
     }
 
@@ -45,56 +54,74 @@ public class ClienteController {
             ClienteDTO dto = clienteDAO.read(id);
             return clienteMapper.toEnt(dto);
         } catch (SQLException e) {
-            e.printStackTrace();
+            view.showError("Error al obtener el cliente: " + e.getMessage());
             return null;
         }
     }
 
-
-    public boolean actualizarCliente(Cliente cliente) {
-        if (!validarMembresia(cliente.getTipoMembresia())) {
-            System.out.println("Tipo de membresía no válido.");
-            return false;
+    public void actualizarCliente(Cliente cliente) {
+        if (cliente == null || !validarMembresia(cliente.getTipoMembresia())) {
+            view.showError("Tipo de membresía no válido o cliente nulo.");
+            return;
         }
         try {
-            ClienteDTO dto = clienteMapper.toDTO(cliente);
-            return clienteDAO.update(dto);
+            if (validatePK(cliente.getId())) {
+                view.showError("La cédula ingresada no se encuentra registrada.");
+                return;
+            }
+            clienteDAO.update(clienteMapper.toDTO(cliente));
+            view.showMessage("Cliente actualizado correctamente.");
         } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
+            view.showError("Ocurrió un error al actualizar los datos: " + e.getMessage());
         }
     }
 
-    public boolean eliminarCliente(int id) {
+    public void eliminarCliente(int id) {
         try {
-            return clienteDAO.delete(id);
+            if (validatePK(id)) {
+                view.showError("La cédula ingresada no se encuentra registrada.");
+                return;
+            }
+            clienteDAO.delete(id);
+            view.showMessage("Cliente eliminado correctamente.");
         } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
+            view.showError("Ocurrió un error al eliminar los datos: " + e.getMessage());
         }
     }
-
 
    public List<Cliente> listarClientes() {
-    List<Cliente> clientes = new ArrayList<>();
     try {
-        List<ClienteDTO> dtos = clienteDAO.readAll();
-        for (ClienteDTO dto : dtos) {
-            clientes.add(clienteMapper.toEnt(dto));
-        }
+        List<ClienteDTO> dtoList = clienteDAO.readAll();
+        return dtoList.stream()
+            .map(dto -> {
+                try {
+                    return clienteMapper.toEnt(dto);
+                } catch (Exception e) { // Captura cualquier excepción que pueda surgir
+                    throw new RuntimeException("Error al mapear ClienteDTO a Cliente", e);
+                }
+            })
+            .filter(Objects::nonNull) // Filtra los objetos nulos
+            .collect(Collectors.toList());
     } catch (SQLException e) {
-        e.printStackTrace();
-       
+        view.showError("Error al cargar los datos: " + e.getMessage());
+        return new ArrayList<>(); // Retorna una lista vacía en caso de error
     }
-    return clientes;
 }
-    // Método para validar el tipo de membresía
+
     private boolean validarMembresia(String tipoMembresia) {
         for (String tipo : TIPOS_MEMBRESIA) {
             if (tipo.equalsIgnoreCase(tipoMembresia)) {
-               return true;
+                return true;
             }
         }
         return false;
+    }
+
+    public boolean validatePK(int id) {
+        try {
+            return clienteDAO.validatePK(id);
+        } catch (SQLException ex) {
+           return false;
+        }
     }
 }

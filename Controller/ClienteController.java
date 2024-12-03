@@ -27,11 +27,8 @@ public class ClienteController {
     }
 
     public boolean agregarCliente(Cliente cliente) {
-
         if (!validarMembresia(cliente.getTipoMembresia())) {
-
             System.out.println("Tipo de membresía no válido.");
-
             return false;
         }
         try {

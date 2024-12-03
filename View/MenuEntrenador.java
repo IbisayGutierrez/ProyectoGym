@@ -67,6 +67,11 @@ public class MenuEntrenador extends javax.swing.JFrame {
 
         jClasePersonalizada2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jClasePersonalizada2.setText("Clase Peronalizada");
+        jClasePersonalizada2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jClasePersonalizada2ActionPerformed(evt);
+            }
+        });
 
         jMostrar.setBackground(new java.awt.Color(51, 51, 51));
 
@@ -163,14 +168,37 @@ public class MenuEntrenador extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jClientes2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jClientes2ActionPerformed
-      
+       jMostrar.removeAll();
+    jMostrar.repaint();
+    jMostrar.revalidate();
+    
+    
     FrmCliente frmCliente = new FrmCliente();
     jMostrar.add(frmCliente);
     frmCliente.setBounds(0, 0, jMostrar.getWidth(), jMostrar.getHeight());
     frmCliente.setVisible(true);
+    
+    
+    jMostrar.repaint();
     jMostrar.revalidate();
     
     }//GEN-LAST:event_jClientes2ActionPerformed
+
+    private void jClasePersonalizada2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jClasePersonalizada2ActionPerformed
+       jMostrar.removeAll();
+    jMostrar.repaint();
+    jMostrar.revalidate();
+    
+        
+        FrmClasePersonalizada ClasePersonalizada = new FrmClasePersonalizada();
+    jMostrar.add(ClasePersonalizada);
+    ClasePersonalizada.setBounds(0, 0, jMostrar.getWidth(), jMostrar.getHeight());
+    ClasePersonalizada.setVisible(true);
+    
+    
+    jMostrar.repaint();
+    jMostrar.revalidate();
+    }//GEN-LAST:event_jClasePersonalizada2ActionPerformed
 
     /**
      * @param args the command line arguments

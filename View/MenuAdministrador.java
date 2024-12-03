@@ -213,10 +213,8 @@ public class MenuAdministrador extends javax.swing.JFrame {
     
     FrmPago frmPago = new FrmPago();
     jMostrar1.add(frmPago);
-    
         
     frmPago.setVisible(true);
-    
     
     jMostrar1.repaint();
     jMostrar1.revalidate();

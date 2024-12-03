@@ -89,7 +89,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
         );
         jMostrar1Layout.setVerticalGroup(
             jMostrar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 468, Short.MAX_VALUE)
         );
 
         jFecha1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
@@ -114,13 +114,13 @@ public class MenuAdministrador extends javax.swing.JFrame {
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(JPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(JPanelMenuLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jMostrar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(JPanelMenuLayout.createSequentialGroup()
                         .addGap(210, 210, 210)
                         .addComponent(jFecha1)
-                        .addContainerGap(241, Short.MAX_VALUE))))
+                        .addContainerGap(241, Short.MAX_VALUE))
+                    .addGroup(JPanelMenuLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jMostrar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         JPanelMenuLayout.setVerticalGroup(
             JPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -132,17 +132,16 @@ public class MenuAdministrador extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addGroup(JPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(JPanelMenuLayout.createSequentialGroup()
+                        .addGap(90, 90, 90)
                         .addComponent(jClientes)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                        .addGap(38, 38, 38)
                         .addComponent(jEntrenadores)
-                        .addGap(26, 26, 26)
+                        .addGap(39, 39, 39)
                         .addComponent(jClasePersonalizada)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPago)
-                        .addGap(64, 64, 64))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JPanelMenuLayout.createSequentialGroup()
-                        .addComponent(jMostrar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())))
+                        .addGap(33, 33, 33)
+                        .addComponent(jPago))
+                    .addComponent(jMostrar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

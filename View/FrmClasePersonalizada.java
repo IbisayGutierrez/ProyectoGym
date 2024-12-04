@@ -5,7 +5,6 @@
 package View;
 
 import DataBase.DataBase;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -353,6 +352,7 @@ public class FrmClasePersonalizada extends javax.swing.JInternalFrame {
 }
     // Limpiar el campo ID después de eliminar.
     txtID.setText("");
+    
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed

@@ -4,6 +4,7 @@
  */
 package Modelo.ClasePersonalizada;
 
+import DataBase.DataBase;
 import Modelo.Dao.DaoCRUD;
 import Modelo.Entrenador.Entrenador;
 import java.sql.Connection;
@@ -119,5 +120,39 @@ public class ClasePersonalizadaDAO extends DaoCRUD<ClasePersonalizadaDTO> {
     public boolean validatePK(Object id) throws SQLException {
         return read(id) == null;
     }
+   // Método para insertar una clase personalizada en la base de datos
+    public static boolean insertarClasePersonalizada(ClasePersonalizada clase) throws SQLException, ClassNotFoundException {
+        // Consulta SQL para insertar datos en la tabla
+        String sql = "INSERT INTO clase_personalizada (id, tipo_clase, horario, entrenador_id, capacidad_maxima) VALUES (?, ?, ?, ?, ?)";
 
+        // Establecer la conexión y preparar la consulta
+        try (Connection conn = DataBase.getConnection(); 
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            // Obtener el id del entrenador asignado
+            Entrenador entrenador = clase.getEntrenadorAsignado();
+            int entrenadorId = entrenador.getId();  // Asegúrate de que Entrenador tenga un método getId()
+
+            // Asignar los valores del objeto 'ClasePersonalizada' a los parámetros de la consulta SQL
+            stmt.setInt(1, clase.getId());              
+            stmt.setString(2, clase.getTipoClase());     
+            stmt.setString(3, clase.getHorario());      
+            stmt.setInt(4, entrenadorId);                
+            stmt.setInt(5, clase.getCapacidadMaxima()); 
+
+            // Ejecutar la inserción
+            int rowsAffected = stmt.executeUpdate();
+
+            // Retornar 'true' si se afectaron filas (significa que la inserción fue exitosa)
+            return rowsAffected > 0;
+
+        }catch (SQLException e) {
+            // Imprimir el error si ocurre alguna excepción
+            e.printStackTrace();
+            return false;
+        }
+       
+        
+    }
+    
 }

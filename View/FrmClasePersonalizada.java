@@ -4,13 +4,19 @@
  */
 package View;
 
+import DataBase.DataBase;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-
+import javax.swing.table.DefaultTableModel;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 /**
  *
  * @author andre
@@ -97,6 +103,7 @@ public class FrmClasePersonalizada extends javax.swing.JInternalFrame {
         txtHorario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mañana", "Tarde", "Noche", " " }));
 
         txtEntrenador.setEditable(true);
+        txtEntrenador.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pedro", "Juan", "Jefferson", "Ibisay" }));
 
         TbClasePersonalizada.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         TbClasePersonalizada.setModel(new javax.swing.table.DefaultTableModel(
@@ -104,14 +111,14 @@ public class FrmClasePersonalizada extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Id", "Tipo de Clase", "Horario", "Entrenador"
+                "Id", "Entrenador", "Horario", "Tipo de Clase"
             }
         ) {
             Class[] types = new Class [] {
                 java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, true, true
+                false, true, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -296,6 +303,10 @@ public class FrmClasePersonalizada extends javax.swing.JInternalFrame {
 
     // Crear el registro.
     String[] registro = {id, entrenador, horario, tipo};
+    datos.add(registro);  // Después de agregar el registro
+    DefaultTableModel model = (DefaultTableModel) TbClasePersonalizada.getModel();
+    model.addRow(registro); // Para agregar la fila de los datos
+
 
     // Mostrar un mensaje de éxito.
     JOptionPane.showMessageDialog(this, "Registro agregado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
@@ -333,7 +344,13 @@ public class FrmClasePersonalizada extends javax.swing.JInternalFrame {
     } else {
         JOptionPane.showMessageDialog(this, "No se encontró un registro con el ID especificado.", "Error", JOptionPane.ERROR_MESSAGE);
     }
-
+    DefaultTableModel model = (DefaultTableModel) TbClasePersonalizada.getModel();
+    for (int i = 0; i < model.getRowCount(); i++) {
+    if (model.getValueAt(i, 0).equals(id)) { // Si el ID coincide
+        model.removeRow(i);  // Eliminar la fila de la tabla
+        break;
+    }
+}
     // Limpiar el campo ID después de eliminar.
     txtID.setText("");
     }//GEN-LAST:event_btnEliminarActionPerformed
@@ -361,32 +378,30 @@ public class FrmClasePersonalizada extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-    // Definir el archivo donde se guardarán los datos.
-    File archivo = new File("datos.txt");
+   try (Connection connection = DataBase.getConnection()) {
+    String query = "INSERT INTO clase_personalizada (tipo_clase, horario, id_entrenador, capacidad_maxima) VALUES (?, ?, ?, ?)";
     
-    try (BufferedWriter escritor = new BufferedWriter(new FileWriter(archivo))) {
-        // Verificar si hay datos para guardar.
-        if (datos.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "No hay datos para guardar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
-            return;
+    // Preparar la sentencia SQL
+    try (PreparedStatement statement = connection.prepareStatement(query)) {
+        // Iterar sobre los datos a insertar
+        for (String[] record : datos) {
+            // Asumimos que record[0] es tipoClase, record[1] es horario, record[2] es idEntrenador y record[3] es capacidadMaxima
+            statement.setString(1, record[0]);  // tipo_clase
+            statement.setString(2, record[1]);  // horario
+            statement.setInt(3, Integer.parseInt(record[2]));  // id_entrenador (suponiendo que record[2] es un ID válido)
+            statement.setInt(4, Integer.parseInt(record[3]));  // capacidad_maxima
+
+            // Ejecutar la inserción
+            statement.executeUpdate();
         }
-        
-        // Escribir los datos en el archivo.
-        for (String[] registro : datos) {
-            escritor.write("ID: " + registro[0] + 
-                           ", Entrenador: " + registro[1] + 
-                           ", Horario: " + registro[2] + 
-                           ", Tipo: " + registro[3]);
-            escritor.newLine(); // Salto de línea para cada registro.
-        }
-        
-        // Mostrar mensaje de éxito.
-        JOptionPane.showMessageDialog(this, "Datos guardados correctamente en 'datos.txt'.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-    } catch (IOException e) {
-        // Manejar posibles errores de escritura.
-        JOptionPane.showMessageDialog(this, "Error al guardar los datos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        e.printStackTrace();
+
+        JOptionPane.showMessageDialog(this, "Datos guardados exitosamente.");
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Error al guardar los datos: " + e.getMessage());
     }
+} catch (SQLException | ClassNotFoundException e) {
+    JOptionPane.showMessageDialog(this, "Error al conectar a la base de datos: " + e.getMessage());
+}
     }//GEN-LAST:event_btnGuardarActionPerformed
 
 

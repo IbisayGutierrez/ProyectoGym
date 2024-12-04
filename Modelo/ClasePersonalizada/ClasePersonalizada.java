@@ -5,8 +5,12 @@
 package Modelo.ClasePersonalizada;
 
 
+import DataBase.DataBase;
 import Modelo.Entrenador.Entrenador;
-
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 /**
  *
  * @author Student
@@ -69,6 +73,20 @@ public class ClasePersonalizada {
             System.out.println("No hay cupos disponibles para la clase: " + tipoClase);
             return false;
         }
+    } 
+    public void guardar() throws SQLException, ClassNotFoundException {
+        String query = "INSERT INTO clase_personalizada (tipo_clase, horario, id_entrenador, capacidad_maxima) VALUES (?, ?, ?, ?)";
+        try (Connection connection = DataBase.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            
+            statement.setString(1, this.tipoClase);
+            statement.setString(2, this.horario);
+            statement.setInt(3, this.entrenadorAsignado.getId()); // Asumiendo que tienes el ID del entrenador
+            statement.setInt(4, this.capacidadMaxima);
+            
+            statement.executeUpdate();
+        }
     }
+    
 
 }

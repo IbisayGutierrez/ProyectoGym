@@ -20,6 +20,9 @@ public class ClasePersonalizadaController {
     private final ClasePersonalizadaDAO clasePersonalizadaDAO;
     private final ClasePersonalizadaMapper clasePersonalizadaMapper;
     private final View view;
+    
+    
+
 
     public ClasePersonalizadaController(View view, Connection connection) {
         this.view = view;
@@ -28,75 +31,105 @@ public class ClasePersonalizadaController {
     }
 
     public void agregarClasePersonalizada(ClasePersonalizada clase) {
-        if (clase == null || !validarClasePersonalizada(clase)) {
-            view.showError("Datos de la clase no válidos o nulos.");
+       
+    if (clase == null || !validarClasePersonalizada(clase)) {
+        view.showError("Datos de la clase no válidos o nulos.");
+        return;
+    }
+
+    try {
+        if (validatePK(clase.getId())) {
+            view.showError("El ID de la clase personalizada ya existe.");
             return;
         }
-
-        try {
-            ClasePersonalizadaDTO dto = clasePersonalizadaMapper.toDTO(clase);
-            clasePersonalizadaDAO.create(dto);
-            view.showMessage("Clase personalizada agregada correctamente.");
-        } catch (SQLException e) {
-            view.showError("Ocurrió un error al guardar los datos: " + e.getMessage());
-        }
+        ClasePersonalizadaDTO dto = clasePersonalizadaMapper.toDTO(clase);
+        clasePersonalizadaDAO.create(dto);
+        view.showMessage("Clase personalizada agregada correctamente.");
+    } catch (SQLException e) {
+        view.showError("Ocurrió un error al guardar los datos: " + e.getMessage());
     }
+}
+
 
     public ClasePersonalizada obtenerClasePersonalizada(int id) {
-        try {
-            ClasePersonalizadaDTO dto = clasePersonalizadaDAO.read(id);
-            return clasePersonalizadaMapper.toEnt(dto);
-        } catch (SQLException e) {
-            view.showError("Error al obtener la clase personalizada: " + e.getMessage());
+        
+    try {
+        if (!validatePK(id)) {
+            view.showError("El ID ingresado no se encuentra registrado.");
             return null;
         }
+        ClasePersonalizadaDTO dto = clasePersonalizadaDAO.read(id);
+        return clasePersonalizadaMapper.toEnt(dto);
+    } catch (SQLException e) {
+        view.showError("Error al obtener la clase personalizada: " + e.getMessage());
+        return null;
+    }
+}
+       
+    public void actualizarClasePersonalizada(ClasePersonalizada clase) {
+       
+    if (clase == null || !validarClasePersonalizada(clase)) {
+        view.showError("Datos de la clase no válidos o nulos.");
+        return;
     }
 
-    public void actualizarClasePersonalizada(ClasePersonalizada clase) {
-        if (clase == null || !validarClasePersonalizada(clase)) {
-            view.showError("Datos de la clase no válidos o nulos.");
+    try {
+        if (!validatePK(clase.getId())) {
+            view.showError("El ID de la clase personalizada no existe en la base de datos.");
             return;
         }
-
-        try {
-            clasePersonalizadaDAO.update(clasePersonalizadaMapper.toDTO(clase));
-            view.showMessage("Clase personalizada actualizada correctamente.");
-        } catch (SQLException e) {
-            view.showError("Ocurrió un error al actualizar los datos: " + e.getMessage());
-        }
+        clasePersonalizadaDAO.update(clasePersonalizadaMapper.toDTO(clase));
+        view.showMessage("Clase personalizada actualizada correctamente.");
+    } catch (SQLException e) {
+        view.showError("Ocurrió un error al actualizar los datos: " + e.getMessage());
     }
+}
 
-    public void eliminarClasePersonalizada(int id) {
-        try {
-            if (!validatePK(id)) {
-                view.showError("El ID ingresado no se encuentra registrado.");
-                return;
-            }
-            clasePersonalizadaDAO.delete(id);
-            view.showMessage("Clase personalizada eliminada correctamente.");
-        } catch (SQLException e) {
-            view.showError("Ocurrió un error al eliminar los datos: " + e.getMessage());
+public void eliminarClasePersonalizada(int id) {
+    try {
+        if (!validatePK(id)) {
+            view.showError("El ID ingresado no se encuentra registrado.");
+            return;
         }
+        clasePersonalizadaDAO.delete(id);
+        view.showMessage("Clase personalizada eliminada correctamente.");
+    } catch (SQLException e) {
+        view.showError("Ocurrió un error al eliminar los datos: " + e.getMessage());
     }
+    }
+    
+        
+       
+    
 
     public List<ClasePersonalizada> listarClasesPersonalizadas() {
-        try {
-            List<ClasePersonalizadaDTO> dtoList = clasePersonalizadaDAO.readAll();
-            return dtoList.stream()
-                    .map(dto -> {
-                        try {
-                            return clasePersonalizadaMapper.toEnt(dto);
-                        } catch (Exception e) {
-                            throw new RuntimeException("Error al mapear ClasePersonalizadaDTO a ClasePersonalizada", e);
-                        }
-                    })
-                    .filter(Objects::nonNull)
-                    .collect(Collectors.toList());
-        } catch (SQLException e) {
-            view.showError("Error al cargar los datos: " + e.getMessage());
-            return new ArrayList<>();
-        }
+       
+    try {
+        // Obtener todas las clases personalizadas desde la base de datos
+        List<ClasePersonalizadaDTO> dtoList = clasePersonalizadaDAO.readAll();
+        
+        // Mapear los DTO a las entidades
+        List<ClasePersonalizada> clases = dtoList.stream()
+                .map(dto -> {
+                    try {
+                        return clasePersonalizadaMapper.toEnt(dto);
+                    } catch (Exception e) {
+                        throw new RuntimeException("Error al mapear ClasePersonalizadaDTO a ClasePersonalizada", e);
+                    }
+                })
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+        
+        // Aquí usas showAll para pasar la lista de clases a la vista
+        view.showAll(clases); // Este método lo debe tener la vista para mostrar los elementos
+
+        return clases;
+    } catch (SQLException e) {
+        view.showError("Error al cargar los datos: " + e.getMessage());
+        return new ArrayList<>();
     }
+}
+
 
     private boolean validarClasePersonalizada(ClasePersonalizada clase) {
         // Validaciones específicas para clases personalizadas

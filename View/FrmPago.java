@@ -4,17 +4,24 @@
  */
 package View;
 
+import Modelo.Pago.Pago;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author andre
  */
 public class FrmPago extends javax.swing.JInternalFrame {
-
+private List<Pago> pagos;
     /**
      * Creates new form FrmPago
      */
     public FrmPago() {
         initComponents();
+        pagos = new ArrayList<>();
+        
+        
     }
 
     /**
@@ -123,7 +130,7 @@ public class FrmPago extends javax.swing.JInternalFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(93, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -179,28 +186,33 @@ public class FrmPago extends javax.swing.JInternalFrame {
         btnMostrar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnMostrar.setText("Mostrar");
         btnMostrar.setToolTipText("");
+        btnMostrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMostrarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(105, 105, 105)
+                .addGap(75, 75, 75)
                 .addComponent(btnNuevo)
-                .addGap(61, 61, 61)
+                .addGap(73, 73, 73)
                 .addComponent(btnEliminar)
-                .addGap(65, 65, 65)
+                .addGap(68, 68, 68)
                 .addComponent(btnMostrar)
-                .addContainerGap(101, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(40, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnNuevo)
                     .addComponent(btnMostrar)
-                    .addComponent(btnEliminar))
+                    .addComponent(btnEliminar)
+                    .addComponent(btnNuevo))
                 .addGap(33, 33, 33))
         );
 
@@ -237,7 +249,7 @@ public class FrmPago extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtFechaActionPerformed
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-         try {
+        try {
         // Limpiar los campos y establecer valores predeterminados
         txtID.setText(""); // ID manual, el usuario lo ingresará
         txtCliente.setText("");
@@ -254,36 +266,41 @@ public class FrmPago extends javax.swing.JInternalFrame {
     } catch (Exception ex) {
         javax.swing.JOptionPane.showMessageDialog(this, "Error al iniciar un nuevo registro: " + ex.getMessage(), "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
     }
+
+
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-         try {
+       try {
         // Obtener el ID que el usuario desea eliminar
-        String id = txtID.getText().trim();
+        String idStr = txtID.getText().trim();
 
         // Validar que el campo ID no esté vacío
-        if (id.isEmpty()) {
+        if (idStr.isEmpty()) {
             javax.swing.JOptionPane.showMessageDialog(this, "Por favor, ingrese un ID para eliminar.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
             return;
         }
 
+        int idPago = Integer.parseInt(idStr); // Convertir a entero
+
         // Confirmar eliminación con el usuario
         int confirmacion = javax.swing.JOptionPane.showConfirmDialog(
                 this,
-                "¿Está seguro de que desea eliminar el registro con ID: " + id + "?",
+                "¿Está seguro de que desea eliminar el registro con ID: " + idPago + "?",
                 "Confirmación",
                 javax.swing.JOptionPane.YES_NO_OPTION
         );
 
         if (confirmacion == javax.swing.JOptionPane.YES_OPTION) {
-            // Lógica para eliminar el registro (puede ser de una base de datos o una lista)
-            boolean eliminado = false; // Cambiar según la lógica real
-
-            // Simulación de eliminación (reemplazar con la lógica real de eliminación)
-            System.out.println("Eliminando registro con ID: " + id);
-            // Aquí debes llamar a tu método que elimina el registro
-            // Si el registro fue eliminado exitosamente:
-            eliminado = true;
+            // Buscar el pago en la lista
+            boolean eliminado = false;
+            for (Pago pago : pagos) {
+                if (pago.getIdPago() == idPago) {
+                    pagos.remove(pago); // Eliminar el pago de la lista
+                    eliminado = true;
+                    break; // Salir del bucle una vez que se ha eliminado
+                }
+            }
 
             if (eliminado) {
                 javax.swing.JOptionPane.showMessageDialog(this, "Registro eliminado con éxito.", "Éxito", javax.swing.JOptionPane.INFORMATION_MESSAGE);
@@ -295,14 +312,21 @@ public class FrmPago extends javax.swing.JInternalFrame {
                 txtSubtotal.setText("");
                 txtTotal.setText("");
             } else {
-                javax.swing.JOptionPane.showMessageDialog(this, "No se encontró el registro con ID: " + id, "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+                javax.swing.JOptionPane.showMessageDialog(this, "No se encontró el registro con ID: " + idPago, "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
             }
         }
+    } catch (NumberFormatException e) {
+        // Manejo de errores si el ID no es un número válido
+        javax.swing.JOptionPane.showMessageDialog(this, "El ID debe ser un número entero.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
     } catch (Exception ex) {
-        // Manejo de errores
+        // Manejo de errores generales
         javax.swing.JOptionPane.showMessageDialog(this, "Ocurrió un error al intentar eliminar el registro: " + ex.getMessage(), "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
     }
     }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarActionPerformed
+  
+    }//GEN-LAST:event_btnMostrarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

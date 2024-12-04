@@ -5,18 +5,22 @@
 package View;
 
 import Controller.EntrenadorController;
+import Modelo.Entrenador.Entrenador;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author andre
  */
 public class FrmEntrenador extends javax.swing.JInternalFrame {
-
+ private List<Entrenador> entrenadores;
     /**
      * Creates new form FrmEntrenador
      */
     public FrmEntrenador() {
         initComponents();
+         entrenadores = new ArrayList<>();
     }
     
     /**
@@ -346,7 +350,33 @@ public class FrmEntrenador extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarActionPerformed
-        
+    String idStr = txtID.getText().trim();
+
+    // Validar que el ID no esté vacío
+    if (idStr.isEmpty()) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Por favor, ingrese el ID del entrenador.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    try {
+        int id = Integer.parseInt(idStr); // Convertir el ID a entero
+
+        // Buscar el entrenador en la lista
+        for (Entrenador entrenador : entrenadores) {
+            if (entrenador.getId() == id) { // Comparar como enteros
+                // Si se encuentra, mostrar los datos en los campos
+                txtNombre.setText(entrenador.getNombre());
+                txtContacto.setText(entrenador.getContacto());
+                txtEspecialidades.setSelectedItem(entrenador.getEspecialidades());
+                return;
+            }
+        }
+
+        // Si no se encuentra el entrenador
+        javax.swing.JOptionPane.showMessageDialog(this, "No se encontró un entrenador con ID: " + id, "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+    } catch (NumberFormatException e) {
+        javax.swing.JOptionPane.showMessageDialog(this, "El ID debe ser un número entero.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_btnMostrarActionPerformed
 
 

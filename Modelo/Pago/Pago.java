@@ -10,8 +10,7 @@ import java.util.Date;
 /**
  *
  * @author Student
- */
-public class Pago {
+ */public class Pago {
    private int idPago;
     private Cliente cliente;
     private Date fecha;
@@ -74,6 +73,7 @@ public class Pago {
     public double CalcularTotal(){
     return subtotal + impuesto;
 }
+
 
   
 }

@@ -4,18 +4,77 @@
  */
 package View;
 
+import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+
 /**
  *
  * @author Student
  */
 public class FrmCliente extends javax.swing.JInternalFrame {
-
+    private DefaultTableModel tableModel;
+    private TableRowSorter<DefaultTableModel> rowSorter;
     /**
      * Creates new form FrmCliente
      */
     public FrmCliente() {
         initComponents();
+        
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+    public void actionPerformed(java.awt.event.ActionEvent evt) {
+        agregarDatos();
     }
+});
+        
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnBuscarActionPerformed(evt);
+    }
+});
+        tableModel = new DefaultTableModel(new Object[]{"ID", "Nombre", "Tipo Clase", "Horario"}, 0);
+        tblCustomers.setModel(tableModel);
+        rowSorter = new TableRowSorter<>(tableModel);
+        tblCustomers.setRowSorter(rowSorter);
+    }
+    
+    private void agregarDatos() {
+    // Aquí puedes obtener los datos de los campos de entrada
+    String idStr = JOptionPane.showInputDialog("Ingrese ID:");
+    String nombre = JOptionPane.showInputDialog("Ingrese Nombre:");
+    String tipoClase = JOptionPane.showInputDialog("Ingrese Tipo de Clase:");
+    String horario = JOptionPane.showInputDialog("Ingrese Horario:");
+
+    // Validar que el ID no esté vacío y sea un número
+    if (idStr != null && !idStr.trim().isEmpty()) {
+        try {
+            int id = Integer.parseInt(idStr); // Convertir el ID a entero
+            // Agregar la nueva fila al modelo de la tabla
+            tableModel.addRow(new Object[]{id, nombre, tipoClase, horario});
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "El ID debe ser un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    } else {
+        JOptionPane.showMessageDialog(this, "El ID no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
+
+    // Método para agregar datos a la tabla (ejemplo)
+    private void agregarDatos(int id, String nombre, String tipoClase, String horario) {
+        tableModel.addRow(new Object[]{id, nombre, tipoClase, horario});
+    }
+
+    // Método para filtrar la tabla
+    private void filtrarTabla(String query) {
+        if (query.trim().length() == 0) {
+            rowSorter.setRowFilter(null); // Si la consulta está vacía, muestra todas las filas
+        } else {
+            rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + query)); // Filtra usando una expresión regular (case insensitive)
+        }
+    }
+    
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -28,6 +87,12 @@ public class FrmCliente extends javax.swing.JInternalFrame {
 
         jScrollPane2 = new javax.swing.JScrollPane();
         tblCustomers = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
+        btnAgregar = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
+        btnActualizar = new javax.swing.JButton();
+        txtBuscar = new javax.swing.JTextField();
 
         tblCustomers.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         tblCustomers.setModel(new javax.swing.table.DefaultTableModel(
@@ -55,29 +120,181 @@ public class FrmCliente extends javax.swing.JInternalFrame {
         });
         jScrollPane2.setViewportView(tblCustomers);
 
+        btnAgregar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnAgregar.setText("Agregar");
+        btnAgregar.setToolTipText("");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
+
+        btnBuscar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
+        btnEliminar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+
+        btnActualizar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(64, 64, 64)
+                .addComponent(btnAgregar)
+                .addGap(48, 48, 48)
+                .addComponent(btnBuscar)
+                .addGap(51, 51, 51)
+                .addComponent(btnEliminar)
+                .addGap(53, 53, 53)
+                .addComponent(btnActualizar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAgregar)
+                    .addComponent(btnBuscar)
+                    .addComponent(btnEliminar)
+                    .addComponent(btnActualizar))
+                .addContainerGap(27, Short.MAX_VALUE))
+        );
+
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 628, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 592, Short.MAX_VALUE)
+                    .addComponent(txtBuscar))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(29, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(15, Short.MAX_VALUE)
+                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22))
+                .addGap(18, 18, 18)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBuscarKeyReleased
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+    String query = txtBuscar.getText();
+        filtrarTabla(query);
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+    // Aquí puedes obtener los datos de los campos de entrada
+    String idStr = JOptionPane.showInputDialog("Ingrese ID:");
+    String nombre = JOptionPane.showInputDialog("Ingrese Nombre:");
+    String tipoClase = JOptionPane.showInputDialog("Ingrese Tipo de Clase:");
+    String horario = JOptionPane.showInputDialog("Ingrese Horario:");
+
+    // Validar que el ID no esté vacío y sea un número
+    if (idStr != null && !idStr.trim().isEmpty()) {
+        try {
+            int id = Integer.parseInt(idStr); // Convertir el ID a entero
+            // Agregar la nueva fila al modelo de la tabla
+            tableModel.addRow(new Object[]{id, nombre, tipoClase, horario});
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "El ID debe ser un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    } else {
+        JOptionPane.showMessageDialog(this, "El ID no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        int row = tblCustomers.getSelectedRow();
+    if (row != -1) {
+        tableModel.removeRow(row);
+    } else {
+        JOptionPane.showMessageDialog(this, "Seleccione una fila para eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+         int row = tblCustomers.getSelectedRow();
+    if (row != -1) {
+        // Obtener los datos actuales de la fila seleccionada
+        String idStr = tableModel.getValueAt(row, 0).toString();
+        String nombre = tableModel.getValueAt(row, 1).toString();
+        String tipoClase = tableModel.getValueAt(row, 2).toString();
+        String horario = tableModel.getValueAt(row, 3).toString();
+
+        // Solicitar nuevos datos al usuario
+        String nuevoIdStr = JOptionPane.showInputDialog("Actualizar ID:", idStr);
+        String nuevoNombre = JOptionPane.showInputDialog("Actualizar Nombre:", nombre);
+        String nuevoTipoClase = JOptionPane.showInputDialog("Actualizar Tipo de Clase:", tipoClase);
+        String nuevoHorario = JOptionPane.showInputDialog("Actualizar Horario:", horario);
+
+        // Validar que el nuevo ID no esté vacío y sea un número
+        if (nuevoIdStr != null && !nuevoIdStr.trim().isEmpty()) {
+            try {
+                int nuevoId = Integer.parseInt(nuevoIdStr); // Convertir el nuevo ID a entero
+                // Actualizar la fila en el modelo de la tabla
+                tableModel.setValueAt(nuevoId, row, 0);
+                tableModel.setValueAt(nuevoNombre, row, 1);
+                tableModel.setValueAt(nuevoTipoClase, row, 2);
+                tableModel.setValueAt(nuevoHorario, row, 3);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "El ID debe ser un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "El ID no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    } else {
+        JOptionPane.showMessageDialog(this, "Seleccione una fila para actualizar.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tblCustomers;
+    private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 }

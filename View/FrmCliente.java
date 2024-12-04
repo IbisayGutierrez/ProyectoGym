@@ -16,11 +16,16 @@ import javax.swing.table.TableRowSorter;
 public class FrmCliente extends javax.swing.JInternalFrame {
     private DefaultTableModel tableModel;
     private TableRowSorter<DefaultTableModel> rowSorter;
+   
     /**
      * Creates new form FrmCliente
      */
     public FrmCliente() {
         initComponents();
+        
+    tableModel = new DefaultTableModel(new Object[]{"ID", "Nombre", "Tipo Clase", "Horario"}, 0);
+    tblCustomers.setModel(tableModel);
+    tblCustomers.setRowSorter(rowSorter);
         
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
     public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -33,30 +38,39 @@ public class FrmCliente extends javax.swing.JInternalFrame {
         btnBuscarActionPerformed(evt);
     }
 });
-        tableModel = new DefaultTableModel(new Object[]{"ID", "Nombre", "Tipo Clase", "Horario"}, 0);
-        tblCustomers.setModel(tableModel);
-        rowSorter = new TableRowSorter<>(tableModel);
-        tblCustomers.setRowSorter(rowSorter);
+        
     }
     
     private void agregarDatos() {
-    // Aquí puedes obtener los datos de los campos de entrada
-    String idStr = JOptionPane.showInputDialog("Ingrese ID:");
-    String nombre = JOptionPane.showInputDialog("Ingrese Nombre:");
-    String tipoClase = JOptionPane.showInputDialog("Ingrese Tipo de Clase:");
-    String horario = JOptionPane.showInputDialog("Ingrese Horario:");
-
-    // Validar que el ID no esté vacío y sea un número
-    if (idStr != null && !idStr.trim().isEmpty()) {
-        try {
-            int id = Integer.parseInt(idStr); // Convertir el ID a entero
-            // Agregar la nueva fila al modelo de la tabla
-            tableModel.addRow(new Object[]{id, nombre, tipoClase, horario});
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "El ID debe ser un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    } else {
+     String idStr = JOptionPane.showInputDialog("Ingrese ID:");
+    if (idStr == null || idStr.trim().isEmpty()) {
         JOptionPane.showMessageDialog(this, "El ID no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    String nombre = JOptionPane.showInputDialog("Ingrese Nombre:");
+    if (nombre == null || nombre.trim().isEmpty()) {
+        JOptionPane.showMessageDialog(this, "El Nombre no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    String tipoClase = JOptionPane.showInputDialog("Ingrese Tipo de Clase:");
+    if (tipoClase == null || tipoClase.trim().isEmpty()) {
+        JOptionPane.showMessageDialog(this, "El Tipo de Clase no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    String horario = JOptionPane.showInputDialog("Ingrese Horario:");
+    if (horario == null || horario.trim().isEmpty()) {
+        JOptionPane.showMessageDialog(this, "El Horario no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    try {
+        int id = Integer.parseInt(idStr); // Validar que el ID sea un número
+        tableModel.addRow(new Object[]{id, nombre, tipoClase, horario});
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "El ID debe ser un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
     }
 }
 

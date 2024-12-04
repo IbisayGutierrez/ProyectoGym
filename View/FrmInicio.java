@@ -302,22 +302,35 @@ private void ValidarCedula(){
 }
 
 private void ValidarNombre(){
- 
-    String nombre = jNombre.getText();
-    
-    if (nombre.trim().isEmpty()){
-        JOptionPane.showMessageDialog(null, "El nombre no puede estar vacio","Error",JOptionPane.ERROR_MESSAGE);
+ String nombre = jNombre.getText().trim();
+    if (nombre.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "El nombre no puede estar vacío", "Error", JOptionPane.ERROR_MESSAGE);
         return;
-    }}
+    }
+    if (nombre.length() > 9) {
+        JOptionPane.showMessageDialog(null, "El nombre no puede tener más de 9 caracteres", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+    if (!nombre.matches("[a-zA-Z]+")) {
+        JOptionPane.showMessageDialog(null, "El nombre solo puede contener letras", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+    JOptionPane.showMessageDialog(null, "El nombre es válido", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+}
 
 private void ValidarContraseña(){
-    
-    String texto = jContraseña.getText();
-    if (texto.length() < 8) {
-               JOptionPane.showMessageDialog
-              (null, "La contraseña debe tener al menos 8 caracteres.", "Error", JOptionPane.ERROR_MESSAGE);
-              return;
-          }
+String contraseña = jContraseña.getText().trim();
+    if (contraseña.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "La contraseña no puede estar vacía", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+    if (contraseña.length() > 8) {
+        JOptionPane.showMessageDialog(null, "La contraseña no puede tener más de 8 caracteres", "Error", JOptionPane.ERROR_MESSAGE);
+        jContraseña.setEnabled(false);
+        
+        return;
+    }
+    JOptionPane.showMessageDialog(null, "Contraseña válida", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 }
 
 }

@@ -22,22 +22,26 @@ public class FrmCliente extends javax.swing.JInternalFrame {
      */
     public FrmCliente() {
         initComponents();
+         this.setSize(800, 600); // Cambia las dimensiones según lo necesario
+         this.setResizable(true);
         
-    tableModel = new DefaultTableModel(new Object[]{"ID", "Nombre", "Tipo Clase", "Horario"}, 0);
-    tblCustomers.setModel(tableModel);
-    tblCustomers.setRowSorter(rowSorter);
+        tableModel = new DefaultTableModel(new Object[]{"ID", "Nombre", "Tipo Clase", "Horario"}, 0);
+        tblCustomers.setModel(tableModel);
         
-        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
-    public void actionPerformed(java.awt.event.ActionEvent evt) {
-        agregarDatos();
-    }
-});
+        rowSorter = new TableRowSorter<>(tableModel);
+        tblCustomers.setRowSorter(rowSorter);
         
-        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-        btnBuscarActionPerformed(evt);
-    }
-});
+         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
+        
+         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
         
     }
     
@@ -79,7 +83,7 @@ public class FrmCliente extends javax.swing.JInternalFrame {
         tableModel.addRow(new Object[]{id, nombre, tipoClase, horario});
     }
 
-    // Método para filtrar la tabla
+    
     private void filtrarTabla(String query) {
         if (query.trim().length() == 0) {
             rowSorter.setRowFilter(null); // Si la consulta está vacía, muestra todas las filas
@@ -231,38 +235,39 @@ public class FrmCliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtBuscarKeyReleased
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-    String query = txtBuscar.getText();
+   String query = txtBuscar.getText();
         filtrarTabla(query);
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-    // Aquí puedes obtener los datos de los campos de entrada
-    String idStr = JOptionPane.showInputDialog("Ingrese ID:");
-    String nombre = JOptionPane.showInputDialog("Ingrese Nombre:");
-    String tipoClase = JOptionPane.showInputDialog("Ingrese Tipo de Clase:");
-    String horario = JOptionPane.showInputDialog("Ingrese Horario:");
+     String idStr = JOptionPane.showInputDialog("Ingrese ID:");
+        String nombre = JOptionPane.showInputDialog("Ingrese Nombre:");
+        String tipoClase = JOptionPane.showInputDialog("Ingrese Tipo de Clase:");
+        String horario = JOptionPane.showInputDialog("Ingrese Horario:");
 
-    // Validar que el ID no esté vacío y sea un número
-    if (idStr != null && !idStr.trim().isEmpty()) {
-        try {
-            int id = Integer.parseInt(idStr); // Convertir el ID a entero
-            // Agregar la nueva fila al modelo de la tabla
-            tableModel.addRow(new Object[]{id, nombre, tipoClase, horario});
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "El ID debe ser un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
+        // Validar que el ID no esté vacío y sea un número
+        if (idStr != null && !idStr.trim().isEmpty()) {
+            try {
+                int id = Integer.parseInt(idStr); // Convertir el ID a entero
+                // Agregar la nueva fila al modelo de la tabla
+                tableModel.addRow(new Object[]{id, nombre, tipoClase, horario});
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "El ID debe ser un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            
+            
+        } else {
+            JOptionPane.showMessageDialog(this, "El ID no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
         }
-    } else {
-        JOptionPane.showMessageDialog(this, "El ID no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
-    }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         int row = tblCustomers.getSelectedRow();
-    if (row != -1) {
-        tableModel.removeRow(row);
-    } else {
-        JOptionPane.showMessageDialog(this, "Seleccione una fila para eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
-    }
+        if (row != -1) {
+            tableModel.removeRow(row);
+        } else {
+            JOptionPane.showMessageDialog(this, "Seleccione una fila para eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed

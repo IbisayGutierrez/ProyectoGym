@@ -37,7 +37,14 @@ public class Entrenador {
     public void setId(int id) {
         this.id = id;
     }
-    
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setEspecialidades(String especialidades) {
+        this.especialidades = especialidades;
+    }
     
     public Entrenador(int id, String nombre, String contacto, String especialidades) {
         this.id = id;
